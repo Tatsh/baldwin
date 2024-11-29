@@ -72,14 +72,16 @@ def init() -> None:
 def auto_commit() -> None:
     """Automatic commit of changed and untracked files."""
     repo = get_repo()
+    diff_items = repo.index.diff(None)
     items_to_add = [
-        *[Path.home() / e.a_path for e in repo.index.diff(None)], *[
+        *[p for e in diff_items if (p := Path.home() / e.a_path).exists()], *[
             x for x in (Path.home() / y
                         for y in repo.untracked_files) if x.is_file() and not is_binary(str(x))
         ]
     ]
     format_(items_to_add)
     repo.index.add(items_to_add)
+    repo.index.remove([p for e in diff_items if not (p := Path.home() / e.a_path).exists()])
     repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
                       committer=Actor('Auto-commiter', 'hgit@tat.sh'))
 
