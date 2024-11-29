@@ -31,7 +31,7 @@ def init() -> None:
     """
     Start tracking a home directory.
     
-    Does nothing if the Git directory does not exist.
+    Does nothing if the Git directory already exists.
     """
     if (git_path := get_git_path()).exists():
         return
