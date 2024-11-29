@@ -111,5 +111,5 @@
     "qa": "yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting",
     "ruff": "poetry run ruff check --fix"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
