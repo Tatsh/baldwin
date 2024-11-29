@@ -15,11 +15,13 @@ jobs:
       - name: 'Install dependencies (Yarn)'
         run: 'yarn'
       - name: 'Lint with mypy'
-        run: 'yarn mypy'
-      - name: 'Check spelling'
-        run: 'yarn check-spelling'
+        run: 'yarn mypy .'
+      - name: 'Lint with Ruff'
+        run: 'yarn ruff .'
       - name: 'Check formatting'
         run: 'yarn check-formatting'
+      - name: 'Check spelling'
+        run: 'yarn check-spelling'
     strategy:
       matrix:
         python-version:
