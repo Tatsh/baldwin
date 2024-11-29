@@ -106,14 +106,13 @@ def install_units() -> None:
     """Install systemd units for automatic committing."""
     bw = which('bw')
     assert bw is not None
-    bw_p = Path(bw).resolve(strict=True)
     service_file = Path('~/.config/systemd/user/home-vcs.service').expanduser()
     service_file.write_text(f"""[Unit]
 Description=Home directory VCS commit
 
 [Service]
 Type=oneshot
-ExecStart={bw_p} auto-commit
+ExecStart={bw} auto-commit
 """)
     log.debug('Wrote to `%s`.', service_file)
     timer_file = Path('~/.config/systemd/user/home-vcs.timer').expanduser()
