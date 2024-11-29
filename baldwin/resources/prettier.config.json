@@ -1,0 +1,22 @@
+{
+  "endOfLine": "lf",
+  "iniSpaceAroundEquals": true,
+  "jsonRecursiveSort": true,
+  "overrides": [
+    {
+      "files": ["Local State"],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": [".config/k*rc", ".local/state/*rc"],
+      "options": {
+        "parser": "ini"
+      }
+    }
+  ],
+  "printWidth": 100,
+  "reorderKeys": true,
+  "singleQuote": true
+}
