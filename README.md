@@ -38,8 +38,8 @@ In addition to the `bw` command, `hgit` is a shortcut for `bw git`.
 bw init
 ```
 
-Find out where the bare Git directory is by running `bw info`. This can be done even if `init` has
-not been run.
+Find out where the Git directory is by running `bw info`. This can be done even if `init` has not
+been run.
 
 ### Automation
 
