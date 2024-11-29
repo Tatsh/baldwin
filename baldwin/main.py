@@ -79,11 +79,14 @@ def auto_commit() -> None:
                         for y in repo.untracked_files) if x.is_file() and not is_binary(str(x))
         ]
     ]
-    format_(items_to_add)
-    repo.index.add(items_to_add)
-    repo.index.remove([p for e in diff_items if not (p := Path.home() / e.a_path).exists()])
-    repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
-                      committer=Actor('Auto-commiter', 'hgit@tat.sh'))
+    if items_to_add:
+        format_(items_to_add)
+        repo.index.add(items_to_add)
+    if items_to_remove := [p for e in diff_items if not (p := Path.home() / e.a_path).exists()]:
+        repo.index.remove(items_to_remove)
+    if items_to_add or items_to_remove:
+        repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
+                          committer=Actor('Auto-commiter', 'hgit@tat.sh'))
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
