@@ -18,12 +18,12 @@ version_provider = "poetry"
 [tool.coverage]
 
 [tool.coverage.report]
-omit = ["conftest.py", "tests/test_*.py"]
+omit = ["tests/conftest.py", "tests/test_*.py"]
 show_missing = true
 
 [tool.coverage.run]
 branch = true
-omit = ["conftest.py", "tests/test_*.py"]
+omit = ["tests/conftest.py", "tests/test_*.py"]
 
 [tool.doc8]
 max-line-length = 100

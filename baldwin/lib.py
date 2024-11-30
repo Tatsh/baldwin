@@ -61,17 +61,18 @@ def init() -> None:
 def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
     repo = get_repo()
-    diff_items = repo.index.diff(None)
+    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None)]  # pragma: no cover
     items_to_add = [
-        *[p for e in diff_items if (p := Path.home() / e.a_path).exists()], *[
+        *[p for p in diff_items if p.exists()], *[
             x for x in (Path.home() / y
                         for y in repo.untracked_files) if x.is_file() and not is_binary(str(x))
         ]
     ]
+    items_to_remove = [p for p in diff_items if not p.exists()]  # pragma: no cover
     if items_to_add:
         format_(items_to_add)
         repo.index.add(items_to_add)
-    if items_to_remove := [p for e in diff_items if not (p := Path.home() / e.a_path).exists()]:
+    if items_to_remove:
         repo.index.remove(items_to_remove)
     if items_to_add or items_to_remove:
         repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',

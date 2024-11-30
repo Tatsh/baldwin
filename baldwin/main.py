@@ -31,7 +31,7 @@ def baldwin_main(*, debug: bool = False) -> None:
 })
 @click.argument('args', nargs=-1, type=click.UNPROCESSED)
 def git_main(args: tuple[str, ...]) -> None:
-    """Front-end to git with git-dir and work-tree passed."""
+    """Wrap git with git-dir and work-tree passed."""
     git(args)
 
 

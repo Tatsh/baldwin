@@ -1,5 +1,6 @@
 *~
 .*_cache/
+.coverage
 .directory
 .pnp.*
 /.yarn/install-state.gz
