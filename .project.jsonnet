@@ -34,10 +34,13 @@ local yarn_version = '4.5.0';
 local shared_ignore = [
   '*~',
   '.*_cache/',
+  '.coverage',
   '.directory',
   '.pnp.*',
   '/.yarn/install-state.gz',
+  '/dist/',
   '__pycache__/',
+  'htmlcov/',
   'node_modules/',
 ];
 
@@ -134,31 +137,27 @@ local manifestYaml(value) =
           },
           {
             name: 'Install dependencies (Poetry)',
-            run: 'poetry install --with=dev',
+            run: 'poetry install --with=dev,tests',
           },
           {
             name: 'Install dependencies (Yarn)',
             run: 'yarn',
           },
           {
-            name: 'Install Shellcheck',
-            run: 'sudo apt-get install -y shellcheck',
-          },
-          {
-            name: 'Lint with Shellcheck',
-            run: 'yarn shellcheck',
-          },
-          {
             name: 'Lint with mypy',
-            run: 'yarn mypy',
+            run: 'yarn mypy .',
           },
           {
-            name: 'Check spelling',
-            run: 'yarn check-spelling',
+            name: 'Lint with Ruff',
+            run: 'yarn ruff .',
           },
           {
             name: 'Check formatting',
             run: 'yarn check-formatting',
+          },
+          {
+            name: 'Check spelling',
+            run: 'yarn check-spelling',
           },
         ],
         strategy: {
@@ -169,6 +168,71 @@ local manifestYaml(value) =
       },
     },
     name: 'QA',
+    on: {
+      pull_request: {
+        branches: [
+          'master',
+        ],
+      },
+      push: {
+        branches: [
+          'master',
+        ],
+      },
+    },
+  }),
+  '.github/workflows/tests.yml': manifestYaml({
+    jobs: {
+      test: {
+        env: {
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+        },
+        'runs-on': 'ubuntu-latest',
+        steps: [
+          {
+            uses: 'actions/checkout@v3',
+          },
+          {
+            name: 'Install Poetry',
+            run: 'pipx install poetry',
+          },
+          {
+            name: 'Set up Python ${{ matrix.python-version }}',
+            uses: 'actions/setup-python@v4',
+            with: {
+              cache: 'poetry',
+              'python-version': '${{ matrix.python-version }}',
+            },
+          },
+          {
+            name: 'Install dependencies (Poetry)',
+            run: 'poetry install --with=tests --all-extras',
+          },
+          {
+            name: 'Install dependencies (Yarn)',
+            run: 'yarn',
+          },
+          {
+            name: 'Run tests',
+            run: 'yarn test --cov=. --cov-branch',
+          },
+          {
+            'if': 'matrix.python-version == 3.12',
+            name: 'Coveralls',
+            run: 'poetry run coveralls --service=github',
+          },
+        ],
+        strategy: {
+          matrix: {
+            'python-version': [
+              '3.12',
+              '3.13',
+            ],
+          },
+        },
+      },
+    },
+    name: 'Tests',
     on: {
       pull_request: {
         branches: [
@@ -514,7 +578,7 @@ local manifestYaml(value) =
       '@prettier/plugin-xml': '^3.4.1',
       cspell: '^8.16.0',
       'markdownlint-cli2': '^0.15.0',
-      prettier: '^3.3.3',
+      prettier: '^3.4.1',
       'prettier-plugin-ini': '^1.3.0',
       'prettier-plugin-sort-json': '^4.0.0',
       'prettier-plugin-toml': '^2.0.1',
@@ -571,6 +635,8 @@ local manifestYaml(value) =
       mypy: 'poetry run mypy',
       qa: 'yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting',
       ruff: 'poetry run ruff check --fix',
+      'ruff:fix': 'poetry run ruff check --fix',
+      test: 'poetry run pytest',
     },
     version: version,
   }),
@@ -604,6 +670,7 @@ local manifestYaml(value) =
         },
         dependencies: {
           python: '>=3.%s,<4' % min_python_minor_version,
+          binaryornot: '^0.4.4',
           click: '^8.1.7',
           gitpython: '^3.1.43',
           platformdirs: '^4.3.6',
@@ -612,9 +679,10 @@ local manifestYaml(value) =
           dev: {
             optional: true,
             dependencies: {
-              commitizen: '^3.31.0',
+              'binaryornot-stubs': '^0',
+              commitizen: '^4.0.0',
               mypy: '^1.13.0',
-              ruff: '^0.7.4',
+              ruff: '^0.8.0',
               yapf: '^0.43.0',
             },
           },
@@ -643,6 +711,7 @@ local manifestYaml(value) =
         },
         scripts: {
           bw: '%s.main:%s_main' % [module_name, module_name],
+          hgit: '%s.main:git' % [module_name],
         },
       },
       commitizen: {
@@ -659,7 +728,7 @@ local manifestYaml(value) =
       coverage: {
         report: {
           omit: [
-            'conftest.py',
+            'tests/conftest.py',
             'tests/test_*.py',
           ],
           show_missing: true,
@@ -667,7 +736,7 @@ local manifestYaml(value) =
         run: {
           branch: true,
           omit: [
-            'conftest.py',
+            'tests/conftest.py',
             'tests/test_*.py',
           ],
         },
