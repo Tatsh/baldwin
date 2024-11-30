@@ -20,6 +20,7 @@ dosbox
 dylib
 eeyore
 esbonio
+excinfo
 fontconfig
 furb
 gitpython
@@ -74,6 +75,7 @@ testpaths
 textconv
 tokenss
 tomlkit
+tryfirst
 udvare
 viminfo
 yapf

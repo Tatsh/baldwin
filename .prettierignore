@@ -6,4 +6,5 @@
 /.yarn/**/*.cjs
 /.yarn/install-state.gz
 __pycache__/
+htmlcov/
 node_modules/

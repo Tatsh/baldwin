@@ -57,7 +57,7 @@ def test_init_no_xml_plugin(runner: CliRunner, mocker: MockerFixture) -> None:
     repo = mocker.patch('baldwin.lib.Repo')
     mocker.patch('baldwin.lib.resources')
     which = mocker.patch('baldwin.lib.which')
-    path.return_value.resolve.return_value.parent.__truediv__.return_value.__truediv__.return_value.resolve.return_value.__truediv__.return_value.exists.return_value = False
+    path.return_value.resolve.return_value.parent.__truediv__.return_value.__truediv__.return_value.resolve.return_value.__truediv__.return_value.exists.return_value = False  # noqa: E501
     runner.invoke(baldwin_main, ('init',))
     assert repo.init.called
     assert repo.init.return_value.index.add.called

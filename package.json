@@ -1,7 +1,5 @@
 {
-  "contributors": [
-    "Andrew Udvare <audvare@gmail.com>"
-  ],
+  "contributors": ["Andrew Udvare <audvare@gmail.com>"],
   "cspell": {
     "dictionaryDefinitions": [
       {
@@ -46,9 +44,7 @@
     "language": "en-GB",
     "languageSettings": [
       {
-        "dictionaries": [
-          "main"
-        ],
+        "dictionaries": ["main"],
         "languageId": "*"
       }
     ]
@@ -65,19 +61,12 @@
     "yarn-audit-fix": "^10.1.0"
   },
   "homepage": "https://github.com/Tatsh/baldwin",
-  "keywords": [
-    "command line",
-    "file management",
-    "git",
-    "version control"
-  ],
+  "keywords": ["command line", "file management", "git", "version control"],
   "license": "MIT",
   "markdownlint-cli2": {
     "config": {
       "MD033": {
-        "allowed_elements": [
-          "kbd"
-        ]
+        "allowed_elements": ["kbd"]
       },
       "default": true,
       "line-length": {
@@ -94,9 +83,7 @@
     "jsonRecursiveSort": true,
     "overrides": [
       {
-        "files": [
-          "package.json"
-        ],
+        "files": ["package.json"],
         "options": {
           "parser": "json"
         }
