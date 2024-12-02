@@ -30,7 +30,7 @@ def git(args: Iterable[str]) -> None:
 def init() -> None:
     """
     Start tracking a home directory.
-    
+
     Does nothing if the Git directory already exists.
     """
     if (git_path := get_git_path()).exists():
@@ -173,15 +173,16 @@ def format_(filenames: Iterable[Path | str] | None = None,
         # Detect plugins
         node_modules_path = (Path(prettier).resolve(strict=True).parent / '..' /
                              '..').resolve(strict=True)
-        cmd = ('prettier', '--config', str(config_file), '--write',
+        cmd_prefix = ('prettier', '--config', str(config_file), '--write',
                '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level', log_level,
                *chain(*(('--plugin', str(fp)) for module in (
                    '@prettier/plugin-xml/src/plugin.js', 'prettier-plugin-ini/src/plugin.js',
                    'prettier-plugin-sort-json/dist/index.js', 'prettier-plugin-toml/lib/index.cjs')
-                        if (fp := (node_modules_path / module)).exists())), *(str(x)
-                                                                              for x in filenames))
-        log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
-        sp.run(cmd, check=True)
+                    if (fp := (node_modules_path / module)).exists())))
+        for filename in filenames:
+            cmd = (*cmd_prefix, str(filename))
+            log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
+            sp.run(cmd, check=False)
 
 
 def set_git_env_vars() -> None:
