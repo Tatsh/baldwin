@@ -174,11 +174,13 @@ def format_(filenames: Iterable[Path | str] | None = None,
         node_modules_path = (Path(prettier).resolve(strict=True).parent / '..' /
                              '..').resolve(strict=True)
         cmd_prefix = ('prettier', '--config', str(config_file), '--write',
-               '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level', log_level,
-               *chain(*(('--plugin', str(fp)) for module in (
-                   '@prettier/plugin-xml/src/plugin.js', 'prettier-plugin-ini/src/plugin.js',
-                   'prettier-plugin-sort-json/dist/index.js', 'prettier-plugin-toml/lib/index.cjs')
-                    if (fp := (node_modules_path / module)).exists())))
+                      '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level',
+                      log_level, *chain(*(('--plugin', str(fp))
+                                          for module in ('@prettier/plugin-xml/src/plugin.js',
+                                                         'prettier-plugin-ini/src/plugin.js',
+                                                         'prettier-plugin-sort-json/dist/index.js',
+                                                         'prettier-plugin-toml/lib/index.cjs')
+                                          if (fp := (node_modules_path / module)).exists())))
         for filename in filenames:
             cmd = (*cmd_prefix, str(filename))
             log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
