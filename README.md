@@ -1,5 +1,14 @@
 # Simple home directory versioning
 
+[![QA](https://github.com/Tatsh/baldwin/actions/workflows/qa.yml/badge.svg)](https://github.com/Tatsh/baldwin/actions/workflows/qa.yml)
+[![Tests](https://github.com/Tatsh/baldwin/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/baldwin/actions/workflows/tests.yml)
+[![Coverage Status](https://coveralls.io/repos/github/Tatsh/baldwin/badge.svg?branch=master)](https://coveralls.io/github/Tatsh/baldwin?branch=master)
+[![Documentation Status](https://readthedocs.org/projects/baldwin/badge/?version=latest)](https://baldwin.readthedocs.io/en/latest/?badge=latest)
+![PyPI - Version](https://img.shields.io/pypi/v/baldwin)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/baldwin)
+![GitHub](https://img.shields.io/github/license/Tatsh/baldwin)
+![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.4/master)
+
 This is a conversion of my simple scripts to version my home directory with very specific excludes
 and formatting every file upon commit so that readable diffs can be generated.
 
