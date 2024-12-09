@@ -42,19 +42,19 @@ def init() -> None:
     gitignore = Path.home() / '.gitignore'
     gitignore.write_text(resources.read_text('baldwin.resources', 'default_gitignore.txt'))
     repo.index.add([gitattributes, gitignore])
-    if which('jq'):
-        repo.git.execute(('git', 'config', 'diff.json.textconv', 'jq -MS .'))
+    if jq := which('jq'):
+        repo.git.execute(('git', 'config', 'diff.json.textconv', f'"{jq}" -MS .'))
         repo.git.execute(('git', 'config', 'diff.json.cachetextconv', 'true'))
     if (prettier := which('prettier')):
         node_modules_path = (Path(prettier).resolve(strict=True).parent / '..' /
                              '..').resolve(strict=True)
         if (node_modules_path / '@prettier/plugin-xml/src/plugin.js').exists():
-            repo.git.execute(
-                ('git', 'config', 'diff.xml.textconv',
-                 'prettier --no-editorconfig --parser xml --xml-whitespace-sensitivity ignore'))
+            repo.git.execute((
+                'git', 'config', 'diff.xml.textconv',
+                f'"{prettier}" --no-editorconfig --parser xml --xml-whitespace-sensitivity ignore'))
             repo.git.execute(('git', 'config', 'diff.xml.cachetextconv', 'true'))
-        repo.git.execute(
-            ('git', 'config', 'diff.yaml.textconv', 'prettier --no-editorconfig --parser yaml'))
+        repo.git.execute(('git', 'config', 'diff.yaml.textconv',
+                          f'"{prettier}" --no-editorconfig --parser yaml'))
         repo.git.execute(('git', 'config', 'diff.yaml.cachetextconv', 'true'))
 
 
@@ -173,7 +173,7 @@ def format_(filenames: Iterable[Path | str] | None = None,
         # Detect plugins
         node_modules_path = (Path(prettier).resolve(strict=True).parent / '..' /
                              '..').resolve(strict=True)
-        cmd_prefix = ('prettier', '--config', str(config_file), '--write',
+        cmd_prefix = (prettier, '--config', str(config_file), '--write',
                       '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level',
                       log_level, *chain(*(('--plugin', str(fp))
                                           for module in ('@prettier/plugin-xml/src/plugin.js',

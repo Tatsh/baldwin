@@ -16,6 +16,7 @@ def test_init(runner: CliRunner, mocker: MockerFixture) -> None:
     repo = mocker.patch('baldwin.lib.Repo')
     mocker.patch('baldwin.lib.resources')
     which = mocker.patch('baldwin.lib.which')
+    which.side_effect = ['jq', 'prettier']
     runner.invoke(baldwin_main, ('init',))
     assert repo.init.called
     assert repo.init.return_value.index.add.called
@@ -26,12 +27,12 @@ def test_init(runner: CliRunner, mocker: MockerFixture) -> None:
     which.assert_any_call('prettier')
     repo.init.return_value.git.execute.assert_any_call(('git', 'config', 'commit.gpgsign', 'false'))
     repo.init.return_value.git.execute.assert_any_call(
-        ('git', 'config', 'diff.json.textconv', 'jq -MS .'))
+        ('git', 'config', 'diff.json.textconv', '"jq" -MS .'))
     repo.init.return_value.git.execute.assert_any_call(
         ('git', 'config', 'diff.xml.textconv',
-         'prettier --no-editorconfig --parser xml --xml-whitespace-sensitivity ignore'))
+         '"prettier" --no-editorconfig --parser xml --xml-whitespace-sensitivity ignore'))
     repo.init.return_value.git.execute.assert_any_call(
-        ('git', 'config', 'diff.yaml.textconv', 'prettier --no-editorconfig --parser yaml'))
+        ('git', 'config', 'diff.yaml.textconv', '"prettier" --no-editorconfig --parser yaml'))
 
 
 def test_init_no_tools(runner: CliRunner, mocker: MockerFixture) -> None:
@@ -57,6 +58,7 @@ def test_init_no_xml_plugin(runner: CliRunner, mocker: MockerFixture) -> None:
     repo = mocker.patch('baldwin.lib.Repo')
     mocker.patch('baldwin.lib.resources')
     which = mocker.patch('baldwin.lib.which')
+    which.side_effect = ['jq', 'prettier']
     path.return_value.resolve.return_value.parent.__truediv__.return_value.__truediv__.return_value.resolve.return_value.__truediv__.return_value.exists.return_value = False  # noqa: E501
     runner.invoke(baldwin_main, ('init',))
     assert repo.init.called
@@ -68,6 +70,6 @@ def test_init_no_xml_plugin(runner: CliRunner, mocker: MockerFixture) -> None:
     which.assert_any_call('prettier')
     repo.init.return_value.git.execute.assert_any_call(('git', 'config', 'commit.gpgsign', 'false'))
     repo.init.return_value.git.execute.assert_any_call(
-        ('git', 'config', 'diff.json.textconv', 'jq -MS .'))
+        ('git', 'config', 'diff.json.textconv', '"jq" -MS .'))
     repo.init.return_value.git.execute.assert_any_call(
-        ('git', 'config', 'diff.yaml.textconv', 'prettier --no-editorconfig --parser yaml'))
+        ('git', 'config', 'diff.yaml.textconv', '"prettier" --no-editorconfig --parser yaml'))
