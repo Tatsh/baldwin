@@ -74,7 +74,7 @@ def auto_commit() -> None:
         repo.index.add(items_to_add)
     if items_to_remove:
         repo.index.remove(items_to_remove)
-    if items_to_add or items_to_remove:
+    if items_to_add or items_to_remove or len(repo.index.diff('HEAD')) > 0:
         repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
                           committer=Actor('Auto-commiter', 'hgit@tat.sh'))
 
