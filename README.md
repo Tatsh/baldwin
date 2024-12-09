@@ -7,7 +7,7 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/baldwin)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/baldwin)
 ![GitHub](https://img.shields.io/github/license/Tatsh/baldwin)
-![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.4/master)
+![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.5/master)
 
 This is a conversion of my simple scripts to version my home directory with very specific excludes
 and formatting every file upon commit so that readable diffs can be generated.
