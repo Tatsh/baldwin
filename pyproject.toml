@@ -75,7 +75,7 @@ optional = true
 binaryornot-stubs = "^0"
 commitizen = "^4.0.0"
 mypy = "^1.13.0"
-ruff = "^0.8.0"
+ruff = ">=0.8,<0.10"
 yapf = "^0.43.0"
 
 [tool.poetry.group.docs]
