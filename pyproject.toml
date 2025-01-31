@@ -113,7 +113,7 @@ include = "baldwin"
 
 [tool.poetry.scripts]
 bw = "baldwin.main:baldwin_main"
-hgit = "baldwin.main:git"
+hgit = "baldwin.main:git_main"
 
 [tool.pyright]
 deprecateTypingAliases = true

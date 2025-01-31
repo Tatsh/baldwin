@@ -706,7 +706,7 @@ local manifestYaml(value) =
         },
         scripts: {
           bw: '%s.main:%s_main' % [module_name, module_name],
-          hgit: '%s.main:git' % [module_name],
+          hgit: '%s.main:git_main' % [module_name],
         },
       },
       commitizen: {
