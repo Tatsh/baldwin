@@ -2,7 +2,7 @@ local project_name = 'baldwin';
 local date_released = '2024-11-28';
 local version = '0.0.5';
 
-local authors = ['Andrew Udvare <audvare@gmail.com>'];
+local authors = [{ name: 'Andrew Udvare', email: 'audvare@gmail.com' }];
 local citation_authors = [
   {
     'family-names': 'Udvare',
@@ -214,7 +214,7 @@ local manifestYaml(value) =
           },
           {
             name: 'Run tests',
-            run: 'yarn test --cov=. --cov-branch',
+            run: 'yarn test --cov=baldwin --cov-branch',
           },
           {
             'if': 'matrix.python-version == 3.12',
@@ -312,7 +312,7 @@ local manifestYaml(value) =
           },
         ],
         repo: 'https://github.com/pre-commit/pre-commit-hooks',
-        rev: 'v4.6.0',
+        rev: 'v5.0.0',
       },
       {
         hooks: [
@@ -323,9 +323,6 @@ local manifestYaml(value) =
             ],
           },
           {
-            args: [
-              '--no-update',
-            ],
             id: 'poetry-lock',
             stages: [
               'pre-push',
@@ -341,7 +338,7 @@ local manifestYaml(value) =
           },
         ],
         repo: 'https://github.com/python-poetry/poetry',
-        rev: '1.8.0',
+        rev: '2.0.1',
       },
       {
         hooks: [
@@ -351,7 +348,7 @@ local manifestYaml(value) =
           },
         ],
         repo: 'https://github.com/google/yapf',
-        rev: 'v0.40.2',
+        rev: 'v0.43.0',
       },
       {
         hooks: [
@@ -372,7 +369,7 @@ local manifestYaml(value) =
           },
         ],
         repo: 'https://github.com/python-jsonschema/check-jsonschema',
-        rev: '0.28.2',
+        rev: '0.31.1',
       },
       {
         hooks: [
@@ -522,7 +519,7 @@ local manifestYaml(value) =
   }),
   '_config.yml': manifestYaml({ theme: github_theme }),
   'package.json': std.manifestJson({
-    contributors: authors,
+    contributors: ['%s <%s>' % [x.name, x.email] for x in authors],
     cspell: {
       dictionaryDefinitions: [
         {
@@ -576,14 +573,14 @@ local manifestYaml(value) =
     },
     devDependencies: {
       '@prettier/plugin-xml': '^3.4.1',
-      cspell: '^8.16.0',
-      'markdownlint-cli2': '^0.15.0',
-      prettier: '^3.4.1',
+      cspell: '^8.17.23,
+      'markdownlint-cli2': '^0.17.2',
+      prettier: '^3.4.2',
       'prettier-plugin-ini': '^1.3.0',
-      'prettier-plugin-sort-json': '^4.0.0',
+      'prettier-plugin-sort-json': '^4.1.1',
       'prettier-plugin-toml': '^2.0.1',
-      pyright: '^1.1.389',
-      'yarn-audit-fix': '^10.1.0',
+      pyright: '^1.1.393',
+      'yarn-audit-fix': '^10.1.1',
     },
     homepage: repository_uri,
     keywords: keywords,
@@ -641,38 +638,36 @@ local manifestYaml(value) =
     version: version,
   }),
   'pyproject.toml': manifestToml({
+    project: {
+      authors: authors,
+      classifiers: std.sort([
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Typing :: Typed',
+      ] + [('Programming Language :: Python :: %s' % i) for i in supported_python_versions]),
+      description: description,
+      dynamic: ['dependencies', 'requires-python'],
+      keywords: keywords,
+      license: license,
+      name: project_name,
+      readme: 'README.md',
+      urls: { documentation: documentation_uri, issues: '%s/issues' % repository_uri, repository: repository_uri },
+      version: version,
+    },
     tool: {
       poetry: {
-        name: project_name,
-        version: version,
-        authors: authors,
-        classifiers: std.sort([
-          'Development Status :: 2 - Pre-Alpha',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python',
-          'Typing :: Typed',
-        ] + [('Programming Language :: Python :: %s' % i) for i in supported_python_versions]),
-        description: description,
-        documentation: documentation_uri,
-        homepage: repository_uri,
-        keywords: keywords,
-        license: license,
         packages: [
           {
             include: module_name,
           },
         ],
-        readme: 'README.md',
-        repository: repository_uri,
-        urls: {
-          Issues: '%s/issues' % repository_uri,
-        },
         dependencies: {
           python: '>=3.%s,<4' % min_python_minor_version,
           binaryornot: '^0.4.4',
-          click: '^8.1.7',
-          gitpython: '^3.1.43',
+          click: '^8.1.8',
+          gitpython: '^3.1.44',
           platformdirs: '^4.3.6',
         },
         group: {

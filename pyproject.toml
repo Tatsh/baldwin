@@ -2,6 +2,33 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
+[project]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+description = "Simple tracking of your home directory with easy-to-read diffs."
+dynamic = ["dependencies", "requires-python"]
+keywords = ["command line", "file management", "git", "version control"]
+license = "MIT"
+name = "baldwin"
+readme = "README.md"
+version = "0.0.5"
+
+[[project.authors]]
+email = "audvare@gmail.com"
+name = "Andrew Udvare"
+
+[project.urls]
+documentation = "https://baldwin.readthedocs.org"
+issues = "https://github.com/Tatsh/baldwin/issues"
+repository = "https://github.com/Tatsh/baldwin"
+
 [tool]
 
 [tool.commitizen]
@@ -39,30 +66,11 @@ strict_optional = true
 warn_unreachable = true
 
 [tool.poetry]
-authors = ["Andrew Udvare <audvare@gmail.com>"]
-classifiers = [
-  "Development Status :: 2 - Pre-Alpha",
-  "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "Typing :: Typed",
-]
-description = "Simple tracking of your home directory with easy-to-read diffs."
-documentation = "https://baldwin.readthedocs.org"
-homepage = "https://github.com/Tatsh/baldwin"
-keywords = ["command line", "file management", "git", "version control"]
-license = "MIT"
-name = "baldwin"
-readme = "README.md"
-repository = "https://github.com/Tatsh/baldwin"
-version = "0.0.5"
 
 [tool.poetry.dependencies]
 binaryornot = "^0.4.4"
-click = "^8.1.7"
-gitpython = "^3.1.43"
+click = "^8.1.8"
+gitpython = "^3.1.44"
 platformdirs = "^4.3.6"
 python = ">=3.12,<4"
 
@@ -75,7 +83,7 @@ optional = true
 binaryornot-stubs = "^0"
 commitizen = "^4.0.0"
 mypy = "^1.13.0"
-ruff = ">=0.8,<0.10"
+ruff = "^0.8.0"
 yapf = "^0.43.0"
 
 [tool.poetry.group.docs]
@@ -105,10 +113,7 @@ include = "baldwin"
 
 [tool.poetry.scripts]
 bw = "baldwin.main:baldwin_main"
-hgit = "baldwin.main:git_main"
-
-[tool.poetry.urls]
-Issues = "https://github.com/Tatsh/baldwin/issues"
+hgit = "baldwin.main:git"
 
 [tool.pyright]
 deprecateTypingAliases = true
