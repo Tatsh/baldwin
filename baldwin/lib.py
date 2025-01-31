@@ -61,7 +61,8 @@ def init() -> None:
 def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
     repo = get_repo()
-    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None)]  # pragma: no cover
+    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None)
+                  if e.a_path is not None]  # pragma: no cover
     items_to_add = [
         *[p for p in diff_items if p.exists()], *[
             x for x in (Path.home() / y
@@ -162,7 +163,8 @@ def format_(filenames: Iterable[Path | str] | None = None,
     """
     if filenames is None:
         repo = get_repo()
-        filenames = (*(Path.home() / d.a_path for d in repo.index.diff(None)),
+        filenames = (*(Path.home() / d.a_path
+                       for d in repo.index.diff(None) if d.a_path is not None),
                      *(x for x in (Path.home() / y for y in repo.untracked_files)
                        if x.is_file() and not is_binary(str(x))))
     if not (filenames := list(filenames)):
