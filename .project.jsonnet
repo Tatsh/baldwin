@@ -1,6 +1,6 @@
 local project_name = 'baldwin';
 local date_released = '2024-11-28';
-local version = '0.0.5';
+local version = '0.0.6';
 
 local authors = [{ name: 'Andrew Udvare', email: 'audvare@gmail.com' }];
 local citation_authors = [
