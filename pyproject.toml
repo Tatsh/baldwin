@@ -40,7 +40,7 @@ version_files = [
   "baldwin/__init__.py",
   "package.json",
 ]
-version_provider = "poetry"
+version_provider = "pep621"
 
 [tool.coverage]
 

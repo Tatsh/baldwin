@@ -718,7 +718,7 @@ local manifestYaml(value) =
           '%s/__init__.py' % module_name,
           'package.json',
         ],
-        version_provider: 'poetry',
+        version_provider: 'pep621',
       },
       coverage: {
         report: {
