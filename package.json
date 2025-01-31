@@ -76,7 +76,7 @@
     }
   },
   "name": "baldwin",
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.6.0",
   "prettier": {
     "endOfLine": "lf",
     "iniSpaceAroundEquals": true,

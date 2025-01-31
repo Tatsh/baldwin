@@ -29,7 +29,7 @@ local repository_uri = 'https://github.com/%s/%s' % [github_username, project_na
 
 local min_python_minor_version = '12';
 local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s' % i) for i in [13]];
-local yarn_version = '4.5.0';
+local yarn_version = '4.6.0';
 
 local shared_ignore = [
   '*~',
