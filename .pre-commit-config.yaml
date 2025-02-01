@@ -57,6 +57,10 @@ repos:
     repo: 'https://github.com/python-jsonschema/check-jsonschema'
     rev: '0.31.1'
   - hooks:
+      - id: 'validate-cff'
+    repo: 'https://github.com/citation-file-format/cffconvert'
+    rev: 'main'
+  - hooks:
       - entry: 'yarn install --check-cache --immutable'
         files: "^package\\.json$"
         id: 'yarn-check-lock'

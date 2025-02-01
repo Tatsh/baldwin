@@ -372,6 +372,11 @@ local manifestYaml(value) =
         rev: '0.31.1',
       },
       {
+        hooks: [{ id: 'validate-cff' }],
+        repo: 'https://github.com/citation-file-format/cffconvert',
+        rev: '2.0.0',
+      },
+      {
         hooks: [
           {
             entry: 'yarn install --check-cache --immutable',
@@ -515,6 +520,7 @@ local manifestYaml(value) =
     authors: citation_authors,
     message: 'If you use this software, please cite it as below.',
     title: project_name,
+    url: repository_uri,
     version: version,
   }),
   '_config.yml': manifestYaml({ theme: github_theme }),
