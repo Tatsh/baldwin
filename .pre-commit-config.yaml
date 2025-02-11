@@ -59,7 +59,7 @@ repos:
   - hooks:
       - id: 'validate-cff'
     repo: 'https://github.com/citation-file-format/cffconvert'
-    rev: 'main'
+    rev: 'b6045d7'
   - hooks:
       - entry: 'yarn install --check-cache --immutable'
         files: "^package\\.json$"

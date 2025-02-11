@@ -109,9 +109,11 @@
     "format": "prettier -w './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -ri .",
     "mypy": "poetry run mypy",
     "qa": "yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting",
+    "regen": "jsonnet -Sm . .project.jsonnet && poetry lock && yarn && yarn format",
     "ruff": "poetry run ruff check --fix",
     "ruff:fix": "poetry run ruff check --fix",
-    "test": "poetry run pytest"
+    "test": "poetry run pytest",
+    "test:cov": "poetry run pytest --cov=. --cov-branch"
   },
   "version": "0.0.7"
 }

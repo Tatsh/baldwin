@@ -60,6 +60,7 @@ pylance
 pyproject
 pyright
 pytest
+regen
 ripdb
 ryujinx
 schemafile

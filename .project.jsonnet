@@ -9,20 +9,23 @@ local citation_authors = [
     'given-names': 'Andrew',
   },
 ];
+local classifiers = [];
 local description = 'Simple tracking of your home directory with easy-to-read diffs.';
+local dev_status_classifier = 'Development Status :: 2 - Pre-Alpha';
 local directory_name = project_name;
 local documentation_uri = 'https://%s.readthedocs.org' % project_name;
 local github_username = 'Tatsh';
 local github_funding = {
   custom: null,
   github: github_username,
-  ko_fi: 'tatsh2',
-  liberapay: 'tatsh2',
-  patreon: 'tatsh2',
+  ko_fi: '%s2' % std.asciiLower(github_username),
+  liberapay: '%s2' % std.asciiLower(github_username),
+  patreon: '%s2' % std.asciiLower(github_username),
 };
 local github_theme = 'jekyll-theme-hacker';
 local keywords = ['command line', 'file management', 'git', 'version control'];
 local license = 'MIT';
+local license_classifier = 'License :: OSI Approved :: %s License' % license;
 local module_name = project_name;
 local repository_name = project_name;
 local repository_uri = 'https://github.com/%s/%s' % [github_username, project_name];
@@ -374,7 +377,7 @@ local manifestYaml(value) =
       {
         hooks: [{ id: 'validate-cff' }],
         repo: 'https://github.com/citation-file-format/cffconvert',
-        rev: '2.0.0',
+        rev: 'b6045d7',
       },
       {
         hooks: [
@@ -637,9 +640,11 @@ local manifestYaml(value) =
       format: "prettier -w './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -ri .",
       mypy: 'poetry run mypy',
       qa: 'yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting',
+      regen: 'jsonnet -Sm . .project.jsonnet && poetry lock && yarn && yarn format',
       ruff: 'poetry run ruff check --fix',
       'ruff:fix': 'poetry run ruff check --fix',
       test: 'poetry run pytest',
+      'test:cov': 'poetry run pytest --cov=. --cov-branch',
     },
     version: version,
   }),
@@ -647,28 +652,30 @@ local manifestYaml(value) =
     project: {
       authors: authors,
       classifiers: std.sort([
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python',
-        'Typing :: Typed',
-      ] + [('Programming Language :: Python :: %s' % i) for i in supported_python_versions]),
+                              dev_status_classifier,
+                              'Intended Audience :: Developers',
+                              license_classifier,
+                              'Programming Language :: Python',
+                              'Typing :: Typed',
+                            ] +
+                            [('Programming Language :: Python :: %s' % i) for i in supported_python_versions] +
+                            classifiers),
       description: description,
       dynamic: ['dependencies', 'requires-python'],
       keywords: keywords,
       license: license,
       name: project_name,
       readme: 'README.md',
-      urls: { documentation: documentation_uri, issues: '%s/issues' % repository_uri, repository: repository_uri },
+      urls: {
+        documentation: documentation_uri,
+        issues: '%s/issues' % repository_uri,
+        repository: repository_uri,
+      },
       version: version,
     },
     tool: {
       poetry: {
-        packages: [
-          {
-            include: module_name,
-          },
-        ],
+        packages: [{ include: module_name }],
         dependencies: {
           python: '>=3.%s,<4' % min_python_minor_version,
           binaryornot: '^0.4.4',
