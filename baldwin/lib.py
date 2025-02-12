@@ -7,7 +7,7 @@ from itertools import chain
 from pathlib import Path
 from shlex import quote
 from shutil import which
-from typing import Literal
+from typing import Any, Literal
 import logging
 import os
 import subprocess as sp
@@ -15,6 +15,7 @@ import subprocess as sp
 from binaryornot.check import is_binary
 from git import Actor, Repo
 import platformdirs
+import tomlkit
 
 log = logging.getLogger(__name__)
 
@@ -136,6 +137,14 @@ def get_git_path() -> Path:
     return platformdirs.user_data_path('home-git', roaming=True)
 
 
+def get_config() -> tomlkit.TOMLDocument | dict[str, Any]:
+    """Get the configuration (TOML file)."""
+    config_file = platformdirs.user_config_path('baldwin', roaming=True) / 'config.toml'
+    if not config_file.exists():
+        return {}
+    return tomlkit.loads(config_file.read_text())
+
+
 def get_repo() -> Repo:
     """
     Get a :py:class:`git.Repo` object.
@@ -167,14 +176,15 @@ def format_(filenames: Iterable[Path | str] | None = None,
                        for d in repo.index.diff(None) if d.a_path is not None),
                      *(x for x in (Path.home() / y for y in repo.untracked_files)
                        if x.is_file() and not is_binary(str(x))))
-    if not (filenames := list(filenames)):
+    if not (filenames := list(filenames)) or not (prettier := which('prettier')):
         return
-    with resources.path('baldwin.resources', 'prettier.config.json') as config_file:
-        if not (prettier := which('prettier')):
-            return
+    with resources.path('baldwin.resources', 'prettier.config.json') as default_config_file:
+        config_file = get_config().get('baldwin', {
+            'prettier_config': str(default_config_file)
+        }).get('prettier_config')
         # Detect plugins
-        node_modules_path = (Path(prettier).resolve(strict=True).parent / '..' /
-                             '..').resolve(strict=True)
+        node_modules_path = (Path(prettier).resolve(strict=True).parent /
+                             '../..').resolve(strict=True)
         cmd_prefix = (prettier, '--config', str(config_file), '--write',
                       '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level',
                       log_level, *chain(*(('--plugin', str(fp))
