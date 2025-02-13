@@ -107,6 +107,8 @@
     "check-formatting": "prettier -c './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -rd .",
     "check-spelling": "cspell --no-progress './**/*'  './**/.*'",
     "format": "prettier -w './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -ri .",
+    "gen-docs": "poetry run sphinx-build -T -E -b html -d docs/_build/doctrees -D language=en docs docs/_build/html",
+    "gen-manpage": "poetry run sphinx-build -T -E -b man -d docs/_build/doctrees -D language=en docs man",
     "mypy": "poetry run mypy",
     "qa": "yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting",
     "regen": "jsonnet -Sm . .project.jsonnet && poetry lock && yarn && yarn format",

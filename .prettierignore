@@ -1,3 +1,4 @@
+*.1
 *.jsonnet
 *~
 .*_cache/

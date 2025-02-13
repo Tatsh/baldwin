@@ -5,6 +5,7 @@
 .pnp.*
 /.yarn/install-state.gz
 /dist/
+/docs/_build/
 __pycache__/
 htmlcov/
 node_modules/

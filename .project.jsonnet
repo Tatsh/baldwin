@@ -42,6 +42,7 @@ local shared_ignore = [
   '.pnp.*',
   '/.yarn/install-state.gz',
   '/dist/',
+  '/docs/_build/',
   '__pycache__/',
   'htmlcov/',
   'node_modules/',
@@ -442,7 +443,7 @@ local manifestYaml(value) =
       },
     ],
   }),
-  '.prettierignore': manifestIgnore(['*.jsonnet', '/.yarn/**/*.cjs']),
+  '.prettierignore': manifestIgnore(['*.1', '*.jsonnet', '/.yarn/**/*.cjs']),
   '.vscode/extensions.json': std.manifestJson({
     recommendations: [
       'aaron-bond.better-comments',
@@ -584,7 +585,7 @@ local manifestYaml(value) =
       '@prettier/plugin-xml': '^3.4.1',
       cspell: '^8.17.3',
       'markdownlint-cli2': '^0.17.2',
-      prettier: '^3.4.2',
+      prettier: '^3.5.0',
       'prettier-plugin-ini': '^1.3.0',
       'prettier-plugin-sort-json': '^4.1.1',
       'prettier-plugin-toml': '^2.0.1',
@@ -637,6 +638,8 @@ local manifestYaml(value) =
     scripts: {
       'check-formatting': "prettier -c './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -rd .",
       'check-spelling': "cspell --no-progress './**/*'  './**/.*'",
+      'gen-docs': 'poetry run sphinx-build -T -E -b html -d docs/_build/doctrees -D language=en docs docs/_build/html',
+      'gen-manpage': 'poetry run sphinx-build -T -E -b man -d docs/_build/doctrees -D language=en docs man',
       format: "prettier -w './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -ri .",
       mypy: 'poetry run mypy',
       qa: 'yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting',
@@ -704,6 +707,8 @@ local manifestYaml(value) =
               'restructuredtext-lint': '^1.4.0',
               sphinx: '^8.1.3',
               'sphinx-click': '^6.0.0',
+              'sphinx-datatables': '^0.2.1',
+              'sphinx-immaterial': '^0.12.5',
             },
           },
           tests: {

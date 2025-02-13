@@ -1,5 +1,6 @@
 acetoneiso
 adbkey
+automodule
 bdic
 binaryornot
 buildid
@@ -12,6 +13,8 @@ commitizen
 conftest
 coveragerc
 crashpad
+datatable
+datatables
 davidanson
 dbeaver
 debugpy
@@ -23,11 +26,13 @@ esbonio
 excinfo
 fontconfig
 furb
+genindex
 gitpython
 gpgsign
 hexahourly
 hgit
 htmlcov
+intersphinx
 isort
 jinja
 jkiss
@@ -41,6 +46,7 @@ lastlog
 libreoffice
 machineid
 markdownlint
+modindex
 mscz
 mypy
 norecursedirs
@@ -79,6 +85,7 @@ tomlkit
 tryfirst
 udvare
 viminfo
+virtualenv
 yapf
 yapfignore
 yarnpkg
