@@ -682,6 +682,7 @@ local manifestYaml(value) =
           click: '^8.1.8',
           gitpython: '^3.1.44',
           platformdirs: '^4.3.6',
+          tomlkit: '^0.13.2',
         },
         group: {
           dev: {
@@ -703,7 +704,6 @@ local manifestYaml(value) =
               'restructuredtext-lint': '^1.4.0',
               sphinx: '^8.1.3',
               'sphinx-click': '^6.0.0',
-              tomlkit: '^0.13.2',
             },
           },
           tests: {
