@@ -20,8 +20,9 @@ author = f'{authors[0]["name"]} <f{authors[0]["email"]}>'
 copyright = str(datetime.now(UTC).year)  # noqa: A001
 project = name
 release = f'v{version}'
-extensions = (['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx_immaterial'] +
-              (['sphinx_click'] if poetry.get('scripts') else []))
+extensions = (
+    ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.napoleon', 'sphinx_immaterial'] +
+    (['sphinx_click'] if poetry.get('scripts') else []))
 exclude_patterns: list[str] = []
 master_doc = 'index'
 html_static_path: list[str] = []
