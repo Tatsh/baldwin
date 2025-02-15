@@ -7,11 +7,11 @@ and formatting every file upon commit so that readable diffs can be generated.
 Commands
 --------
 
-.. click:: baldwin.main:baldwin_main
+.. click:: baldwin.main:baldwin
   :prog: bw
   :nested: full
 
-.. click:: baldwin.main:git_main
+.. click:: baldwin.main:git
   :prog: hgit
   :nested: full
 

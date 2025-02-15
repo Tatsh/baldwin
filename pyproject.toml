@@ -114,8 +114,8 @@ pytest-mock = "^3.14.0"
 include = "baldwin"
 
 [tool.poetry.scripts]
-bw = "baldwin.main:baldwin_main"
-hgit = "baldwin.main:git_main"
+bw = "baldwin.main:baldwin"
+hgit = "baldwin.main:git"
 
 [tool.pyright]
 deprecateTypingAliases = true

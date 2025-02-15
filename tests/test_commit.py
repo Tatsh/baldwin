@@ -1,4 +1,4 @@
-from baldwin.main import baldwin_main
+from baldwin.main import baldwin
 from click.testing import CliRunner
 from pytest_mock import MockerFixture
 
@@ -17,7 +17,7 @@ def test_commit(runner: CliRunner, mocker: MockerFixture) -> None:
     deleted_file.a_path = 'deleted1'
     repo.return_value.index.diff.return_value = [changed_file, deleted_file]
     path.home.return_value.__truediv__.return_value.exists.side_effect = [True, False, True, False]
-    runner.invoke(baldwin_main, ('auto-commit',))
+    runner.invoke(baldwin, ('auto-commit',))
     assert repo.return_value.index.add.called
     assert repo.return_value.index.remove.called
     assert repo.return_value.index.commit.called
@@ -32,7 +32,7 @@ def test_commit_no_files(runner: CliRunner, mocker: MockerFixture) -> None:
     repo = mocker.patch('baldwin.lib.Repo')
     repo.untracked_files = []
     repo.return_value.index.diff.return_value = []
-    runner.invoke(baldwin_main, ('auto-commit',))
+    runner.invoke(baldwin, ('auto-commit',))
     assert not repo.return_value.index.add.called
     assert not repo.return_value.index.remove.called
     assert not repo.return_value.index.commit.called
@@ -50,7 +50,7 @@ def test_commit_no_add(runner: CliRunner, mocker: MockerFixture) -> None:
     deleted_file.a_path = 'deleted1'
     repo.return_value.index.diff.return_value = [deleted_file]
     path.home.return_value.__truediv__.return_value.exists.return_value = False
-    runner.invoke(baldwin_main, ('auto-commit',))
+    runner.invoke(baldwin, ('auto-commit',))
     assert not repo.return_value.index.add.called
     assert repo.return_value.index.remove.called
     assert repo.return_value.index.commit.called
@@ -67,7 +67,7 @@ def test_commit_no_delete(runner: CliRunner, mocker: MockerFixture) -> None:
     changed_file = mocker.MagicMock()
     changed_file.a_path = 'changed1'
     repo.return_value.index.diff.return_value = [changed_file]
-    runner.invoke(baldwin_main, ('auto-commit',))
+    runner.invoke(baldwin, ('auto-commit',))
     assert repo.return_value.index.add.called
     assert not repo.return_value.index.remove.called
     assert repo.return_value.index.commit.called

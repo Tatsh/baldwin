@@ -3,23 +3,23 @@ import logging
 import click
 
 from .lib import (
-    auto_commit,
+    auto_commit as auto_commit_,
     format_,
-    git,
-    init,
-    install_units,
+    git as git_,
+    init as init_,
+    install_units as install_units_,
     repo_info,
     set_git_env_vars,
 )
 
 log = logging.getLogger(__name__)
 
-__all__ = ('baldwin_main', 'git_main')
+__all__ = ('baldwin', 'git')
 
 
 @click.group(context_settings={'help_option_names': ('-h', '--help')})
 @click.option('-d', '--debug', help='Enable debug logging.', is_flag=True)
-def baldwin_main(*, debug: bool = False) -> None:
+def baldwin(*, debug: bool = False) -> None:
     """Manage a home directory with Git."""
     set_git_env_vars()
     logging.basicConfig(level=logging.DEBUG if debug else logging.ERROR)
@@ -30,31 +30,31 @@ def baldwin_main(*, debug: bool = False) -> None:
     'ignore_unknown_options': True
 })
 @click.argument('args', nargs=-1, type=click.UNPROCESSED)
-def git_main(args: tuple[str, ...]) -> None:
+def git(args: tuple[str, ...]) -> None:
     """Wrap git with git-dir and work-tree passed."""
-    git(args)
+    git_(args)
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
-def init_main() -> None:
+def init() -> None:
     """Start tracking a home directory."""
-    init()
+    init_()
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
-def auto_commit_main() -> None:
+def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
-    auto_commit()
+    auto_commit_()
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
-def format_main() -> None:
+def format() -> None:  # noqa: A001
     """Format changed and untracked files."""
     format_()
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
-def info_main() -> None:
+def info() -> None:
     """Get basic information about the repository."""
     data = repo_info()
     click.echo(f'git-dir path: {data.git_dir_path}')
@@ -62,14 +62,14 @@ def info_main() -> None:
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
-def install_units_main() -> None:
+def install_units() -> None:
     """Install systemd units for automatic committing."""
-    install_units()
+    install_units_()
 
 
-baldwin_main.add_command(auto_commit_main, 'auto-commit')
-baldwin_main.add_command(format_main, 'format')
-baldwin_main.add_command(git_main, 'git')
-baldwin_main.add_command(info_main, 'info')
-baldwin_main.add_command(init_main, 'init')
-baldwin_main.add_command(install_units_main, 'install-units')
+baldwin.add_command(auto_commit)
+baldwin.add_command(format)
+baldwin.add_command(git)
+baldwin.add_command(info)
+baldwin.add_command(init)
+baldwin.add_command(install_units)
