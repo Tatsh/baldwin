@@ -33,5 +33,9 @@ templates_path = ['_templates']
 datatables_class = 'sphinx-datatable'
 datatables_options = {'paging': 0}
 datatables_version = '1.13.4'
-intersphinx_mapping = {'python': ('https://docs.python.org/3.13', None)}
+intersphinx_mapping = {
+    'gitpython': ('https://gitpython.readthedocs.io/en/stable/', None),
+    'python': ('https://docs.python.org/3.13', None),
+    'tomlkit': ('https://tomlkit.readthedocs.io/en/latest/', None)
+}
 intersphinx_cache_limit = 0
