@@ -865,7 +865,7 @@ local manifestYaml(value) =
             'SLOT',
             'T10',
             'T20',
-            'TCH',
+            'TC',
             'TD',
             'TID',
             'TRY',

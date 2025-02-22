@@ -202,7 +202,7 @@ extend-select = [
   "SLOT",
   "T10",
   "T20",
-  "TCH",
+  "TC",
   "TD",
   "TID",
   "TRY",
