@@ -20,11 +20,8 @@ author = f'{authors[0]["name"]} <f{authors[0]["email"]}>'
 copyright = str(datetime.now(UTC).year)  # noqa: A001
 project = name
 release = f'v{version}'
-extensions = (['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.napoleon'] +
-              (['sphinx_click'] if poetry.get('scripts') else []))
-exclude_patterns: list[str] = []
-master_doc = 'index'
-html_static_path: list[str] = []
+extensions = ('sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.napoleon',
+              'sphinx.ext.viewcode', *(('sphinx_click',) if poetry.get('scripts') else ()))
 html_theme = 'sphinxdoc'
 templates_path = ['_templates']
 
@@ -37,3 +34,4 @@ intersphinx_mapping = {
     'tomlkit': ('https://tomlkit.readthedocs.io/en/latest/', None)
 }
 intersphinx_cache_limit = 0
+viewcode_line_numbers = True
