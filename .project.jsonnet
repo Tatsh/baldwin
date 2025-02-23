@@ -1,5 +1,7 @@
+local copyright_year = '2024';
+local date_released = '%s-11-28' % copyright_year;
+
 local project_name = 'baldwin';
-local date_released = '2024-11-28';
 local version = '0.0.7';
 
 local github_username = 'Tatsh';
@@ -28,6 +30,27 @@ local github_theme = 'jekyll-theme-hacker';
 local keywords = ['command line', 'file management', 'git', 'version control'];
 local license = 'MIT';
 local license_classifier = 'License :: OSI Approved :: %s License' % license;
+local license_lines = [
+  'The MIT License (MIT)',
+  '',
+  'Copyright (c) %s %s',
+  '',
+  'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and',
+  'associated documentation files (the "Software"), to deal in the Software without restriction,',
+  'including without limitation the rights to use, copy, modify, merge, publish, distribute,',
+  'sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is',
+  'furnished to do so, subject to the following conditions:',
+  '',
+  'The above copyright notice and this permission notice shall be included in all copies or',
+  'substantial portions of the Software.',
+  '',
+  'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT',
+  'NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND',
+  'NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,',
+  'DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT',
+  'OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.',
+];
+
 local module_name = project_name;
 local repository_name = project_name;
 local repository_uri = 'https://github.com/%s/%s' % [github_username, project_name];
@@ -62,6 +85,15 @@ local manifestLines(value) =
 
 local manifestYaml(value) =
   std.manifestYamlDoc(value, true, false);
+
+local licenseText() =
+  if std.length(citation_authors) == 1 then
+    std.join('\n', license_lines) % [copyright_year, '%s %s' % [
+      citation_authors[0]['given-names'],
+      citation_authors[0]['family-names'],
+    ]]
+  else
+    std.join('\n', license_lines) % [copyright_year, '%s authors' % project_name];
 
 {
   '.gitattributes': manifestLines([
@@ -447,6 +479,25 @@ local manifestYaml(value) =
     ],
   }),
   '.prettierignore': manifestIgnore(['*.1', '*.jsonnet', '/.yarn/**/*.cjs']),
+  '.readthedocs.yaml': manifestYaml({
+    build: {
+      jobs: {
+        post_install: [
+          'pip install poetry',
+          'VIRTUAL_ENV="$READTHEDOCS_VIRTUALENV_PATH" poetry install --all-extras --with=docs',
+        ],
+      },
+      os: 'ubuntu-22.04',
+      tools: {
+        python: '3.12',
+      },
+    },
+    sphinx: {
+      configuration: 'docs/conf.py',
+      fail_on_warning: true,
+    },
+    version: 2,
+  }),
   '.vscode/extensions.json': std.manifestJson({
     recommendations: [
       'aaron-bond.better-comments',
@@ -483,6 +534,11 @@ local manifestYaml(value) =
       'editor.defaultFormatter': 'eeyore.yapf',
       'editor.formatOnSaveMode': 'file',
       'editor.tabSize': 4,
+    },
+    '[restructuredtext]': {
+      'editor.defaultFormatter': 'lextudio.restructuredtext',
+      'editor.formatOnSaveMode': 'file',
+      'editor.tabSize': 3,
     },
     'cSpell.enabled': true,
     'editor.formatOnPaste': true,
@@ -536,6 +592,7 @@ local manifestYaml(value) =
     url: 'https://%s.github.io/%s/' % [github_username, project_name],
     version: version,
   }),
+  'LICENSE.txt': licenseText(),
   '_config.yml': manifestYaml({ theme: github_theme }),
   'package.json': std.manifestJson({
     contributors: [{
@@ -568,6 +625,7 @@ local manifestYaml(value) =
       ],
       ignorePaths: std.uniq(std.sort(shared_ignore + [
         '*.har',
+        '.git/',
         '.vscode/extensions.json',
         '.yarn/**/*.cjs',
         'dist/',
@@ -736,6 +794,7 @@ local manifestYaml(value) =
 
       },
       commitizen: {
+        pre_bump_hooks: ['.cz/update-date.sh'],
         tag_format: 'v$version',
         version_files: [
           '.project.jsonnet',

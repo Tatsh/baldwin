@@ -36,6 +36,7 @@
       ".*_cache/",
       ".coverage",
       ".directory",
+      ".git/",
       ".pnp.*",
       ".vscode/extensions.json",
       ".yarn/**/*.cjs",

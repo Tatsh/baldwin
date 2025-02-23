@@ -43,6 +43,7 @@ knsregistry
 kxmlgui
 languagepacks
 lastlog
+lextudio
 libreoffice
 machineid
 markdownlint
