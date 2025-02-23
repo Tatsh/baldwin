@@ -15,17 +15,19 @@ Commands
   :prog: hgit
   :nested: full
 
-Library
--------
-.. automodule:: baldwin
-   :members:
+.. only:: html
 
-.. automodule:: baldwin.lib
-   :members:
+   Library
+   -------
+   .. automodule:: baldwin
+      :members:
 
-Indices and tables
-==================
+   .. automodule:: baldwin.lib
+      :members:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Indices and tables
+   ==================
+
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`

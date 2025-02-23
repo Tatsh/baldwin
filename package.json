@@ -1,5 +1,11 @@
 {
-  "contributors": ["Andrew Udvare <audvare@gmail.com>"],
+  "contributors": [
+    {
+      "email": "audvare@gmail.com",
+      "name": "Andrew Udvare",
+      "url": "https://github.com/Tatsh"
+    }
+  ],
   "cspell": {
     "dictionaryDefinitions": [
       {
@@ -26,20 +32,21 @@
     "ignorePaths": [
       "*.har",
       "*.log",
+      "*~",
+      ".*_cache/",
       ".coverage",
       ".directory",
-      ".doctrees",
-      ".git",
+      ".pnp.*",
       ".vscode/extensions.json",
       ".yarn/**/*.cjs",
-      "__pycache__",
-      "_build/**",
-      "build/**",
-      "dist/**",
-      "docs/_build/**",
-      "htmlcov/**",
-      "man/**",
-      "node_modules/**"
+      "/.yarn/install-state.gz",
+      "/dist/",
+      "/docs/_build/",
+      "__pycache__/",
+      "dist/",
+      "htmlcov/",
+      "man/",
+      "node_modules/"
     ],
     "language": "en-GB",
     "languageSettings": [

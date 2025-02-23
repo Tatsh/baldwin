@@ -2,11 +2,14 @@ local project_name = 'baldwin';
 local date_released = '2024-11-28';
 local version = '0.0.7';
 
-local authors = [{ name: 'Andrew Udvare', email: 'audvare@gmail.com' }];
+local github_username = 'Tatsh';
 local citation_authors = [
   {
+    country: 'US',
+    email: 'audvare@gmail.com',
     'family-names': 'Udvare',
     'given-names': 'Andrew',
+    website: 'https://github.com/%s' % github_username,
   },
 ];
 local classifiers = [];
@@ -14,7 +17,6 @@ local description = 'Simple tracking of your home directory with easy-to-read di
 local dev_status_classifier = 'Development Status :: 2 - Pre-Alpha';
 local directory_name = project_name;
 local documentation_uri = 'https://%s.readthedocs.org' % project_name;
-local github_username = 'Tatsh';
 local github_funding = {
   custom: null,
   github: github_username,
@@ -35,6 +37,7 @@ local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s'
 local yarn_version = '4.6.0';
 
 local shared_ignore = [
+  '*.log',
   '*~',
   '.*_cache/',
   '.coverage',
@@ -521,15 +524,25 @@ local manifestYaml(value) =
   'CITATION.cff': manifestYaml({
     'cff-version': '1.2.0',
     'date-released': date_released,
+    'repository-artifact': '%s/archive/refs/tags/v%s.tar.gz' % [repository_uri, version],
+    'repository-code': repository_uri,
+    abstract: description,
     authors: citation_authors,
-    message: 'If you use this software, please cite it as below.',
+    keywords: keywords,
+    license: license,
+    message: 'If you use this software, please cite it using the metadata from this file.',
     title: project_name,
-    url: repository_uri,
+    type: 'software',
+    url: 'https://%s.github.io/%s/' % [github_username, project_name],
     version: version,
   }),
   '_config.yml': manifestYaml({ theme: github_theme }),
   'package.json': std.manifestJson({
-    contributors: ['%s <%s>' % [x.name, x.email] for x in authors],
+    contributors: [{
+      email: x.email,
+      name: '%s %s' % [x['given-names'], x['family-names']],
+      url: x.website,
+    } for x in citation_authors],
     cspell: {
       dictionaryDefinitions: [
         {
@@ -553,24 +566,13 @@ local manifestYaml(value) =
         'yaml',
         'yml',
       ],
-      ignorePaths: [
+      ignorePaths: std.uniq(std.sort(shared_ignore + [
         '*.har',
-        '*.log',
-        '.coverage',
-        '.directory',
-        '.doctrees',
-        '.git',
         '.vscode/extensions.json',
         '.yarn/**/*.cjs',
-        '__pycache__',
-        '_build/**',
-        'build/**',
-        'dist/**',
-        'docs/_build/**',
-        'htmlcov/**',
-        'man/**',
-        'node_modules/**',
-      ],
+        'dist/',
+        'man/',
+      ])),
       language: 'en-GB',
       languageSettings: [
         {
@@ -585,11 +587,11 @@ local manifestYaml(value) =
       '@prettier/plugin-xml': '^3.4.1',
       cspell: '^8.17.3',
       'markdownlint-cli2': '^0.17.2',
-      prettier: '^3.5.0',
+      prettier: '^3.5.1',
       'prettier-plugin-ini': '^1.3.0',
       'prettier-plugin-sort-json': '^4.1.1',
       'prettier-plugin-toml': '^2.0.1',
-      pyright: '^1.1.393',
+      pyright: '^1.1.394',
       'yarn-audit-fix': '^10.1.1',
     },
     homepage: repository_uri,
@@ -653,7 +655,13 @@ local manifestYaml(value) =
   }),
   'pyproject.toml': manifestToml({
     project: {
-      authors: authors,
+      authors: [
+        {
+          email: x.email,
+          name: '%s %s' % [x['given-names'], x['family-names']],
+        }
+        for x in citation_authors
+      ],
       classifiers: std.sort([
                               dev_status_classifier,
                               'Intended Audience :: Developers',
@@ -669,6 +677,10 @@ local manifestYaml(value) =
       license: license,
       name: project_name,
       readme: 'README.md',
+      scripts: {
+        bw: '%s.main:%s' % [module_name, module_name],
+        hgit: '%s.main:git' % [module_name],
+      },
       urls: {
         documentation: documentation_uri,
         issues: '%s/issues' % repository_uri,
@@ -708,7 +720,6 @@ local manifestYaml(value) =
               sphinx: '^8.1.3',
               'sphinx-click': '^6.0.0',
               'sphinx-datatables': '^0.2.1',
-              'sphinx-immaterial': '^0.12.5',
             },
           },
           tests: {
@@ -722,10 +733,7 @@ local manifestYaml(value) =
             },
           },
         },
-        scripts: {
-          bw: '%s.main:%s_main' % [module_name, module_name],
-          hgit: '%s.main:git_main' % [module_name],
-        },
+
       },
       commitizen: {
         tag_format: 'v$version',

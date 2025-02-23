@@ -24,6 +24,10 @@ version = "0.0.7"
 email = "audvare@gmail.com"
 name = "Andrew Udvare"
 
+[project.scripts]
+bw = "baldwin.main:baldwin"
+hgit = "baldwin.main:git"
+
 [project.urls]
 documentation = "https://baldwin.readthedocs.org"
 issues = "https://github.com/Tatsh/baldwin/issues"
@@ -111,10 +115,6 @@ pytest-mock = "^3.14.0"
 
 [[tool.poetry.packages]]
 include = "baldwin"
-
-[tool.poetry.scripts]
-bw = "baldwin.main:baldwin"
-hgit = "baldwin.main:git"
 
 [tool.pyright]
 deprecateTypingAliases = true

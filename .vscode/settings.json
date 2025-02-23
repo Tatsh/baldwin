@@ -4,6 +4,11 @@
     "editor.formatOnSaveMode": "file",
     "editor.tabSize": 4
   },
+  "[restructuredtext]": {
+    "editor.defaultFormatter": "lextudio.restructuredtext",
+    "editor.formatOnSaveMode": "file",
+    "editor.tabSize": 3
+  },
   "cSpell.enabled": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,

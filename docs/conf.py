@@ -7,9 +7,8 @@ import sys
 import tomlkit
 
 with (Path(__file__).parent.parent / 'pyproject.toml').open() as f:
-    content = tomlkit.load(f).unwrap()
-    authors, name, version = itemgetter('authors', 'name', 'version')(content['project'])
-    poetry = content['tool']['poetry']
+    project_ = tomlkit.load(f).unwrap()['project']
+    authors, name, version = itemgetter('authors', 'name', 'version')(project_)
 # region Path setup
 # If extensions (or modules to document with autodoc) are in another directory, add these
 # directories to sys.path here. If the directory is relative to the documentation root, use
@@ -21,7 +20,7 @@ copyright = str(datetime.now(UTC).year)  # noqa: A001
 project = name
 release = f'v{version}'
 extensions = ('sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.napoleon',
-              'sphinx.ext.viewcode', *(('sphinx_click',) if poetry.get('scripts') else ()))
+              'sphinx.ext.viewcode', *(('sphinx_click',) if project_.get('scripts') else ()))
 html_theme = 'sphinxdoc'
 templates_path = ['_templates']
 
