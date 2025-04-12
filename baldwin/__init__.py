@@ -1,2 +1,2 @@
-"""Manage a home directory with Git."""
+"""baldwin module."""
 __version__ = '0.0.7'

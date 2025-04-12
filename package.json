@@ -1,11 +1,5 @@
 {
-  "contributors": [
-    {
-      "email": "audvare@gmail.com",
-      "name": "Andrew Udvare",
-      "url": "https://github.com/Tatsh"
-    }
-  ],
+  "contributors": ["Andrew Udvare <audvare@gmail.com>"],
   "cspell": {
     "dictionaryDefinitions": [
       {
@@ -30,24 +24,24 @@
       "yml"
     ],
     "ignorePaths": [
+      "*.1",
       "*.har",
       "*.log",
-      "*~",
-      ".*_cache/",
+      ".*_cache/**",
       ".coverage",
       ".directory",
-      ".git/",
-      ".pnp.*",
+      ".doctrees",
+      ".git",
       ".vscode/extensions.json",
       ".yarn/**/*.cjs",
-      "/.yarn/install-state.gz",
-      "/dist/",
-      "/docs/_build/",
-      "__pycache__/",
-      "dist/",
-      "htmlcov/",
-      "man/",
-      "node_modules/"
+      "__pycache__",
+      "_build/**",
+      "build/**",
+      "dist/**",
+      "docs/_build/**",
+      "htmlcov/**",
+      "man/**",
+      "node_modules/**"
     ],
     "language": "en-GB",
     "languageSettings": [
@@ -66,9 +60,9 @@
     "prettier-plugin-sort-json": "^4.1.1",
     "prettier-plugin-toml": "^2.0.4",
     "pyright": "^1.1.398",
-    "yarn-audit-fix": "^10.1.1"
+    "yarn-audit-fix": "^10.1.0"
   },
-  "homepage": "https://github.com/Tatsh/baldwin",
+  "homepage": "https://tatsh.github.io/baldwin/",
   "keywords": ["command line", "file management", "git", "version control"],
   "license": "MIT",
   "markdownlint-cli2": {
@@ -84,7 +78,7 @@
     }
   },
   "name": "baldwin",
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.9.0",
   "prettier": {
     "endOfLine": "lf",
     "iniSpaceAroundEquals": true,
@@ -112,18 +106,18 @@
     "url": "git@github.com:Tatsh/baldwin.git"
   },
   "scripts": {
-    "check-formatting": "prettier -c './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -rd .",
-    "check-spelling": "cspell --no-progress './**/*'  './**/.*'",
-    "format": "prettier -w './**/*.cff' './**/*.json' './**/*.md' './**/*.toml' './**/*.y*ml' && poetry run yapf -ri .",
+    "check-formatting": "yarn prettier -c . && poetry run yapf -prd . && yarn markdownlint-cli2 '**/*.md' '#node_modules'",
+    "check-spelling": "yarn cspell --no-progress './**/*'  './**/.*'",
+    "format": "prettier -w . && poetry run yapf -ri . && yarn markdownlint-cli2 --fix '**/*.md' '#node_modules'",
     "gen-docs": "poetry run sphinx-build -T -E -b html -d docs/_build/doctrees -D language=en docs docs/_build/html",
     "gen-manpage": "poetry run sphinx-build -T -E -b man -d docs/_build/doctrees -D language=en docs man",
     "mypy": "poetry run mypy",
     "qa": "yarn mypy . && yarn ruff . && yarn check-spelling && yarn check-formatting",
-    "regen": "jsonnet -Sm . .project.jsonnet && poetry lock && yarn && yarn format",
-    "ruff": "poetry run ruff check --fix",
+    "regen": "poetry run wiswa",
+    "ruff": "poetry run ruff check",
     "ruff:fix": "poetry run ruff check --fix",
     "test": "poetry run pytest",
-    "test:cov": "poetry run pytest --cov=. --cov-branch"
+    "test:cov": "yarn test --cov . --cov-report html --cov-report term-missing:skip-covered"
   },
   "version": "0.0.7"
 }

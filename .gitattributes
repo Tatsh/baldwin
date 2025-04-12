@@ -1,2 +1,3 @@
+* text=auto eol=lf
 *.lock binary
-/.yarn/**/*.cjs
+/.yarn/**/*.cjs binary

@@ -1,7 +1,7 @@
 """Baldwin library."""
 from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from importlib import resources
 from itertools import chain
 from pathlib import Path
@@ -77,7 +77,7 @@ def auto_commit() -> None:
     if items_to_remove:
         repo.index.remove(items_to_remove)
     if items_to_add or items_to_remove or len(repo.index.diff('HEAD')) > 0:
-        repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
+        repo.index.commit(f'Automatic commit @ {datetime.now(tz=timezone.utc).isoformat()}',
                           committer=Actor('Auto-commiter', 'hgit@tat.sh'))
 
 
