@@ -22,7 +22,9 @@ __all__ = ('baldwin', 'git')
 def baldwin(*, debug: bool = False) -> None:
     """Manage a home directory with Git."""
     set_git_env_vars()
-    logging.basicConfig(level=logging.DEBUG if debug else logging.ERROR)
+    logging.basicConfig(format=('%(asctime)s | %(levelname)-8s | '
+                                '%(name)s:%(funcName)s:%(lineno)d - %(message)s'),
+                        level=logging.DEBUG if debug else logging.ERROR)
 
 
 @click.command(context_settings={
