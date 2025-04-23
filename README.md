@@ -1,5 +1,6 @@
 # Simple home directory versioning
 
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![QA](https://github.com/Tatsh/baldwin/actions/workflows/qa.yml/badge.svg)](https://github.com/Tatsh/baldwin/actions/workflows/qa.yml)
 [![Tests](https://github.com/Tatsh/baldwin/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/baldwin/actions/workflows/tests.yml)
 [![Coverage Status](https://coveralls.io/repos/github/Tatsh/baldwin/badge.svg?branch=master)](https://coveralls.io/github/Tatsh/baldwin?branch=master)
