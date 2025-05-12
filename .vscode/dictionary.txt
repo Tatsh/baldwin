@@ -4,6 +4,7 @@ autodoc
 automodule
 bdic
 binaryornot
+bsky
 buildid
 cachetextconv
 chainstate
