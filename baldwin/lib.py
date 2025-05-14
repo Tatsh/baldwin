@@ -8,7 +8,7 @@ from itertools import chain
 from pathlib import Path
 from shlex import quote
 from shutil import which
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Literal, cast
 import logging
 import os
 import subprocess as sp
@@ -20,6 +20,8 @@ import tomlkit
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
+
+    from .typing import BaldwinConfigContainer
 
 log = logging.getLogger(__name__)
 
@@ -156,12 +158,12 @@ def get_git_path() -> Path:
     return platformdirs.user_data_path('home-git', roaming=True)
 
 
-def get_config() -> tomlkit.TOMLDocument | dict[str, Any]:
+def get_config() -> BaldwinConfigContainer:
     """Get the configuration (TOML file)."""
     config_file = platformdirs.user_config_path('baldwin', roaming=True) / 'config.toml'
     if not config_file.exists():
         return {}
-    return tomlkit.loads(config_file.read_text())
+    return cast('BaldwinConfigContainer', tomlkit.loads(config_file.read_text()).unwrap())
 
 
 def get_repo() -> Repo:
