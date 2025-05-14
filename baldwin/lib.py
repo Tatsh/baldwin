@@ -65,16 +65,24 @@ def init() -> None:
 
 def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
+    def can_open(file: Path) -> bool:
+        """Check if a file can be opened."""
+        try:
+            with file.open('rb'):
+                pass
+        except OSError:
+            return False
+        return True
+
     repo = get_repo()
-    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None)
-                  if e.a_path is not None]  # pragma: no cover
+    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None) if e.a_path is not None]
     items_to_add = [
         *[p for p in diff_items if p.exists()], *[
-            x for x in (Path.home() / y
-                        for y in repo.untracked_files) if x.is_file() and not is_binary(str(x))
+            x for x in (Path.home() / y for y in repo.untracked_files)
+            if can_open(x) and x.is_file() and not is_binary(str(x))
         ]
     ]
-    items_to_remove = [p for p in diff_items if not p.exists()]  # pragma: no cover
+    items_to_remove = [p for p in diff_items if not p.exists()]
     if items_to_add:
         format_(items_to_add)
         repo.index.add(items_to_add)
