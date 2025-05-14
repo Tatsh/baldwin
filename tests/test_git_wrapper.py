@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from baldwin.lib import get_git_path
 from baldwin.main import baldwin, git
-from click.testing import CliRunner
-from pytest_mock import MockerFixture
+
+if TYPE_CHECKING:
+    from click.testing import CliRunner
+    from pytest_mock import MockerFixture
 
 
 def test_hgit_wrapper(runner: CliRunner, mocker: MockerFixture) -> None:

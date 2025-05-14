@@ -1,5 +1,6 @@
 """Baldwin library."""
-from collections.abc import Iterable
+from __future__ import annotations
+
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from importlib import resources
@@ -7,7 +8,7 @@ from itertools import chain
 from pathlib import Path
 from shlex import quote
 from shutil import which
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 import logging
 import os
 import subprocess as sp
@@ -16,6 +17,9 @@ from binaryornot.check import is_binary
 from git import Actor, Repo
 import platformdirs
 import tomlkit
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 log = logging.getLogger(__name__)
 
@@ -96,7 +100,13 @@ def repo_info() -> RepoInfo:
 
 
 def install_units() -> None:
-    """Install systemd units for automatic committing."""
+    """
+    Install systemd units for automatic committing.
+
+    Raises
+    ------
+    FileNotFoundError
+    """
     bw = which('bw')
     if not bw:
         raise FileNotFoundError
@@ -105,8 +115,9 @@ def install_units() -> None:
 Description=Home directory VCS commit
 
 [Service]
-Type=oneshot
+Environment=NO_COLOR=1
 ExecStart={bw} auto-commit
+Type=oneshot
 """)
     log.debug('Wrote to `%s`.', service_file)
     timer_file = Path('~/.config/systemd/user/home-vcs.timer').expanduser()

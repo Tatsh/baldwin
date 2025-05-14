@@ -1,6 +1,12 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from baldwin.main import baldwin
-from click.testing import CliRunner
-from pytest_mock import MockerFixture
+
+if TYPE_CHECKING:
+    from click.testing import CliRunner
+    from pytest_mock import MockerFixture
 
 
 def test_commit(runner: CliRunner, mocker: MockerFixture) -> None:
