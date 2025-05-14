@@ -8,7 +8,7 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/baldwin)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/baldwin)
 ![GitHub](https://img.shields.io/github/license/Tatsh/baldwin)
-![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.8/master)
+![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.9/master)
 
 [![@Tatsh](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpublic.api.bsky.app%2Fxrpc%2Fapp.bsky.actor.getProfile%2F%3Factor%3Ddid%3Aplc%3Auq42idtvuccnmtl57nsucz72%26query%3D%24.followersCount%26style%3Dsocial%26logo%3Dbluesky%26label%3DFollow%2520%40Tatsh&query=%24.followersCount&style=social&logo=bluesky&label=Follow%20%40Tatsh)](https://bsky.app/profile/tatsh.bsky.social)
 
