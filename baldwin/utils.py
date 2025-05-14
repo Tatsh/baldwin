@@ -35,5 +35,12 @@ def setup_logging(*,
                 'formatter': 'default',
             }
         },
+        'loggers': {
+            'baldwin': {
+                'level': 'DEBUG' if debug else 'INFO',
+                'handlers': ['console'],
+                'propagate': False,
+            }
+        },
         'version': 1
     })

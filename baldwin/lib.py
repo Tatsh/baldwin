@@ -195,7 +195,11 @@ def format_(filenames: Iterable[Path | str] | None = None,
                        for d in repo.index.diff(None) if d.a_path is not None),
                      *(x for x in (Path.home() / y for y in repo.untracked_files)
                        if x.is_file() and not is_binary(str(x))))
-    if not (filenames := list(filenames)) or not (prettier := which('prettier')):
+    if not (filenames := list(filenames)):
+        log.debug('No files to format.')
+        return
+    if not (prettier := which('prettier')):
+        log.debug('Prettier not found in PATH.')
         return
     with resources.path('baldwin.resources', 'prettier.config.json') as default_config_file:
         config_file = get_config().get('baldwin', {
