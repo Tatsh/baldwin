@@ -36,7 +36,6 @@ local utils = import 'utils.libjsonnet';
       },
     },
   },
-  skip+: ['baldwin/utils.py', 'tests/test_main.py', 'tests/test_utils.py'],
   // Common
   authors: [
     {

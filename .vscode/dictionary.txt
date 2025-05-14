@@ -10,6 +10,8 @@ cachetextconv
 chainstate
 chatlogs
 codeowners
+colored
+colorlog
 commiter
 commitizen
 conftest
@@ -24,7 +26,7 @@ doctrees
 dosbox
 dylib
 eeyore
-erdantic
+esbenp
 esbonio
 excinfo
 fontawesome
@@ -52,7 +54,7 @@ lastlog
 levelname
 lextudio
 libjsonnet
-libreoffice
+linters
 machineid
 modindex
 mscz
@@ -77,9 +79,11 @@ pyright
 pytest
 regen
 ripdb
+rstcheck
 ryujinx
 schemafile
 sdcard
+sdist
 serverlogs
 sessionstore
 sgrd

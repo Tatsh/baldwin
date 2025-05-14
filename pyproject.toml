@@ -26,9 +26,6 @@ version = "0.0.8"
 email = "audvare@gmail.com"
 name = "Andrew Udvare"
 
-[project.optional-dependencies]
-erdantic = ["erdantic<2.0"]
-
 [project.scripts]
 bw = "baldwin.main:baldwin"
 hgit = "baldwin.main:git"
@@ -39,22 +36,21 @@ documentation = "https://baldwin.readthedocs.org"
 homepage = "https://tatsh.github.io/baldwin/"
 repository = "https://github.com/Tatsh/baldwin"
 
-[tool]
-
 [tool.commitizen]
 tag_format = "v$version"
 version_files = [
   ".wiswa.jsonnet",
   "CITATION.cff",
   "README.md",
-  "package.json",
   "baldwin/__init__.py",
+  "docs/index.rst",
+  "man/baldwin.1",
+  "package.json",
 ]
 version_provider = "pep621"
 
-[tool.coverage]
-
 [tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:"]
 omit = ["conftest.py", "tests.py", "tests/test_*.py", "__main__.py"]
 show_missing = true
 
@@ -84,28 +80,27 @@ strict_optional = true
 warn_unreachable = true
 
 [tool.poetry]
-include = ["man"]
+include = ["man", { format = "sdist", path = "tests" }]
 
 [tool.poetry.dependencies]
 binaryornot = "^0.4.4"
 click = "^8.1.8"
+colorlog = "^6.9.0"
 gitpython = "^3.1.44"
 platformdirs = "^4.3.6"
 python = ">=3.10,<3.14"
 tomlkit = "^0.13.2"
-typing-extensions = "^4.13.1"
-
-[tool.poetry.group]
+typing-extensions = "^4.13.2"
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
 binaryornot-stubs = "^0"
-commitizen = "^4.5.0"
+commitizen = "^4.7.0"
 djlint = "^1.36.4"
 mypy = ">=1.12,<1.16"
-ruff = "^0.11.2"
+ruff = "^0.11.9"
 yapf = "^0.43.0"
 
 [tool.poetry.group.docs]
@@ -118,15 +113,22 @@ docutils = "^0.21.2"
 esbonio = "^0.16.5"
 numpydoc = "^1.8.0"
 restructuredtext-lint = "^1.4.0"
-sphinx = "<8.2.0"
 sphinx-click = "^6.0.0"
 sphinx-datatables = "^0.2.1"
 sphinx-hoverxref = "^1.4.2"
-sphinx-immaterial = "^0.13.4"
+sphinx-immaterial = "^0.13.5"
 
 [tool.poetry.group.docs.dependencies.enum-tools]
 extras = ["sphinx"]
 version = "^0.12.0"
+
+[[tool.poetry.group.docs.dependencies.sphinx]]
+python = ">=3.11"
+version = "^8.2.0"
+
+[[tool.poetry.group.docs.dependencies.sphinx]]
+python = "<3.11"
+version = "^7.2.5"
 
 [tool.poetry.group.tests]
 optional = true
@@ -160,8 +162,6 @@ reportUnnecessaryTypeIgnoreComment = "none"
 typeCheckingMode = "off"
 useLibraryCodeForTypes = false
 
-[tool.pytest]
-
 [tool.pytest.ini_options]
 mock_use_standalone_module = true
 norecursedirs = ["node_modules"]
@@ -191,6 +191,7 @@ extend-select = [
   "CPY",
   "D",
   "DJ",
+  "DOC",
   "DTZ",
   "E",
   "EM",
@@ -198,6 +199,7 @@ extend-select = [
   "EXE",
   "F",
   "FA",
+  "FAST",
   "FBT",
   "FIX",
   "FLY",
@@ -229,11 +231,12 @@ extend-select = [
   "SLOT",
   "T10",
   "T20",
-  "TCH",
+  "TC",
   "TD",
   "TID",
   "TRY",
   "UP",
+  "W",
   "YTT",
 ]
 ignore = [
@@ -245,17 +248,11 @@ ignore = [
   "C901",
   "COM812",
   "CPY001",
-  "D100",
-  "D101",
-  "D102",
-  "D103",
-  "D104",
-  "D105",
-  "D106",
-  "D107",
+  "D201",
   "D203",
   "D204",
   "D212",
+  "DOC201",
   "EM101",
   "N818",
   "PLR0912",
@@ -284,6 +281,8 @@ multiline-quotes = "double"
 case-sensitive = true
 combine-as-imports = true
 from-first = true
+required-imports = ["from __future__ import annotations"]
+section-order = ["future", "standard-library", "third-party", "local-folder"]
 
 [tool.ruff.lint.pep8-naming]
 extend-ignore-names = ["test_*"]
