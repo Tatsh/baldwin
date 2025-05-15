@@ -18,6 +18,10 @@ local utils = import 'utils.libjsonnet';
       },
     },
     tool+: {
+      coverage+: {
+        report+: { omit+: ['baldwin/typing.py'] },
+        run+: { omit+: ['baldwin/typing.py'] },
+      },
       poetry+: {
         dependencies+: {
           binaryornot: '^0.4.4',
