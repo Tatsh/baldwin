@@ -17,7 +17,7 @@ def test_format_no_prettier(runner: CliRunner, mocker: MockerFixture) -> None:
     which = mocker.patch('baldwin.lib.which')
     which.return_value = None
     repo = mocker.patch('baldwin.lib.Repo')
-    repo.untracked_files = ['untracked1']
+    repo.return_value.untracked_files = ['untracked1']
     changed_file = mocker.MagicMock()
     changed_file.a_path = 'changed1'
     deleted_file = mocker.MagicMock()
@@ -35,7 +35,7 @@ def test_format_no_files(runner: CliRunner, mocker: MockerFixture) -> None:
     run = mocker.patch('baldwin.lib.sp.run')
     which = mocker.patch('baldwin.lib.which')
     repo = mocker.patch('baldwin.lib.Repo')
-    repo.untracked_files = []
+    repo.return_value.untracked_files = []
     repo.return_value.index.diff.return_value = []
     runner.invoke(baldwin, ('format',))
     assert not run.called
@@ -52,7 +52,7 @@ def test_format(runner: CliRunner, mocker: MockerFixture) -> None:
     which = mocker.patch('baldwin.lib.which')
     which.return_value = '/bin/prettier'
     repo = mocker.patch('baldwin.lib.Repo')
-    repo.untracked_files = ['untracked1']
+    repo.return_value.untracked_files = ['untracked1']
     changed_file = mocker.MagicMock()
     changed_file.a_path = 'changed1'
     deleted_file = mocker.MagicMock()
@@ -69,12 +69,12 @@ def test_format_config_file_exists(runner: CliRunner, mocker: MockerFixture) -> 
     mocker.patch('baldwin.lib.platformdirs.user_config_path'
                  ).return_value.__truediv__.return_value.exists.return_value = True
     mocker.patch('baldwin.lib.resources')
-    mocker.patch('baldwin.lib.tomlkit.loads').return_value = {}
+    mocker.patch('baldwin.lib.tomlkit.loads').return_value.unwrap.return_value = {}
     run = mocker.patch('baldwin.lib.sp.run')
     which = mocker.patch('baldwin.lib.which')
     which.return_value = '/bin/prettier'
     repo = mocker.patch('baldwin.lib.Repo')
-    repo.untracked_files = ['untracked1']
+    repo.return_value.untracked_files = ['untracked1']
     changed_file = mocker.MagicMock()
     changed_file.a_path = 'changed1'
     deleted_file = mocker.MagicMock()
