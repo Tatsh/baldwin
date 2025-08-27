@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 
+from bascom import setup_logging
 import click
 
 from .lib import (
@@ -14,7 +15,6 @@ from .lib import (
     repo_info,
     set_git_env_vars,
 )
-from .utils import setup_logging
 
 log = logging.getLogger(__name__)
 
@@ -26,7 +26,14 @@ __all__ = ('baldwin', 'git')
 def baldwin(*, debug: bool = False) -> None:
     """Manage a home directory with Git."""
     set_git_env_vars()
-    setup_logging(debug=debug)
+    setup_logging(debug=debug,
+                  loggers={
+                      'baldwin': {
+                          'handlers': ('console',),
+                          'level': logging.DEBUG if debug else logging.INFO,
+                          'propagate': False,
+                      }
+                  })
 
 
 @click.command(context_settings={

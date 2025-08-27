@@ -8,7 +8,22 @@ local utils = import 'utils.libjsonnet';
   version: '0.0.9',
   want_main: true,
   citation+: {
-    'date-released': '2025-04-12',
+    'date-released': '2025-08-27',
+  },
+  copilot: {
+    intro: 'Baldwin is a command line tool for tracking a home directory with Git.',
+  },
+  docs_conf+: {
+    config+: {
+      intersphinx_mapping+: {
+        binaryornot: ['https://binaryornot.readthedocs.io/en/latest/', null],
+        click: ['https://click.palletsprojects.com/en/latest/', null],
+        gitpython: ['https://gitpython.readthedocs.io/en/stable/', null],
+        platformdirs: ['https://platformdirs.readthedocs.io/en/latest/', null],
+        tomlkit: ['https://tomlkit.readthedocs.io/en/latest/', null],
+        'typing-extensions': ['https://typing-extensions.readthedocs.io/en/latest/', null],
+      },
+    },
   },
   pyproject+: {
     project+: {
@@ -25,15 +40,14 @@ local utils = import 'utils.libjsonnet';
       poetry+: {
         dependencies+: {
           binaryornot: '^0.4.4',
-          click: '^8.1.8',
-          gitpython: '^3.1.44',
-          platformdirs: '^4.3.6',
-          tomlkit: '^0.13.2',
+          gitpython: '^3.1.45',
+          platformdirs: '^4.4.0',
+          tomlkit: '^0.13.3',
         },
         group+: {
           dev+: {
             dependencies+: {
-              'binaryornot-stubs': '^0',
+              'types-binaryornot': '^0.4.0.20250507',
             },
           },
         },
@@ -51,6 +65,9 @@ local utils = import 'utils.libjsonnet';
   ],
   local funding_name = '%s2' % std.asciiLower(self.github_username),
   github_username: 'Tatsh',
+  social+: {
+    mastodon+: { id: '109370961877277568' },
+  },
   github+: {
     funding+: {
       ko_fi: funding_name,

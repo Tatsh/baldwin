@@ -1,7 +1,9 @@
 acetoneiso
 adbkey
+asyncio
 autodoc
 automodule
+bascom
 bdic
 binaryornot
 bsky
@@ -10,18 +12,18 @@ cachetextconv
 chainstate
 chatlogs
 codeowners
-colored
-colorlog
 commiter
 commitizen
 conftest
 coveragerc
 crashpad
+dataclasses
 datatable
 datatables
 dbeaver
 debugpy
 djlint
+docstrings
 doctrees
 dosbox
 dylib
@@ -42,6 +44,7 @@ hoverxref
 htmlcov
 intersphinx
 isort
+itertools
 jinja
 jkiss
 jsonlz
@@ -51,7 +54,6 @@ knsregistry
 kxmlgui
 languagepacks
 lastlog
-levelname
 lextudio
 libjsonnet
 linters
@@ -59,6 +61,7 @@ machineid
 modindex
 mscz
 mypy
+namedtuples
 norecursedirs
 numpy
 numpydoc
@@ -74,6 +77,7 @@ pycache
 pydantic
 pydocstyle
 pylance
+pylint
 pyproject
 pyright
 pytest

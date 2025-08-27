@@ -9,10 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.0.17]
+## [0.0.9]
 
 ### Fixed
 
 - auto-commit: do not try to add files that cannot be opened.
 
-[unreleased]: https://github.com/Tatsh/baldwin/-/compare/v0.0.17...HEAD
+[unreleased]: https://github.com/Tatsh/baldwin/-/compare/v0.0.9...HEAD
