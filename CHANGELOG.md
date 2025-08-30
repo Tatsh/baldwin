@@ -16,3 +16,4 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - auto-commit: do not try to add files that cannot be opened.
 
 [unreleased]: https://github.com/Tatsh/baldwin/-/compare/v0.0.9...HEAD
+[0.0.9]: https://github.com/Tatsh/baldwin/compare/v0.0.8...v0.0.9
