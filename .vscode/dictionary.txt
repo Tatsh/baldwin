@@ -1,5 +1,8 @@
 acetoneiso
 adbkey
+appdir
+appimage
+appinfo
 asyncio
 autodoc
 automodule
@@ -35,7 +38,7 @@ excinfo
 filevers
 fontawesome
 fontconfig
-furb
+foxundermoon
 genindex
 gitpython
 globaltoc
@@ -56,6 +59,7 @@ knsregistry
 kxmlgui
 languagepacks
 lastlog
+launchable
 lextudio
 libjsonnet
 linters
@@ -81,11 +85,9 @@ pycache
 pydantic
 pydocstyle
 pyinstaller
-pylance
 pylint
 pypi
 pyproject
-pyright
 pytest
 regen
 ripdb
@@ -97,6 +99,7 @@ sdist
 serverlogs
 sessionstore
 sgrd
+shellformat
 skypeforlinux
 softprops
 sphinxcontrib
@@ -110,6 +113,7 @@ tomlq
 tonumber
 tryfirst
 udvare
+venv
 vers
 viminfo
 virtualenv
