@@ -26,14 +26,10 @@ __all__ = ('baldwin', 'git')
 def baldwin(*, debug: bool = False) -> None:
     """Manage a home directory with Git."""
     set_git_env_vars()
-    setup_logging(debug=debug,
-                  loggers={
-                      'baldwin': {
-                          'handlers': ('console',),
-                          'level': logging.DEBUG if debug else logging.INFO,
-                          'propagate': False,
-                      }
-                  })
+    setup_logging(debug=debug, loggers={'baldwin': {
+        'handlers': ('console',),
+        'propagate': False,
+    }})
 
 
 @click.command(context_settings={
