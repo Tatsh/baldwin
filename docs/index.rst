@@ -19,8 +19,8 @@ Baldwin
       :target: https://github.com/Tatsh/baldwin/blob/master/LICENSE.txt
       :alt: License
 
-   .. image:: https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.9/master
-      :target: https://github.com/Tatsh/baldwin/compare/v0.0.9...master
+   .. image:: https://img.shields.io/github/commits-since/Tatsh/baldwin/v0.0.10/master
+      :target: https://github.com/Tatsh/baldwin/compare/v0.0.10...master
       :alt: GitHub commits since latest release (by SemVer including pre-releases)
 
    .. image:: https://github.com/Tatsh/baldwin/actions/workflows/codeql.yml/badge.svg

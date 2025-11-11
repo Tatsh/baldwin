@@ -4,7 +4,7 @@ local utils = import 'utils.libjsonnet';
   description: 'Simple tracking of your home directory with easy-to-read diffs.',
   keywords: ['command line', 'file management', 'git', 'version control'],
   project_name: 'baldwin',
-  version: '0.0.9',
+  version: '0.0.10',
   want_main: true,
   copilot+: {
     intro: 'Baldwin is a command line tool for tracking a home directory with Git.',

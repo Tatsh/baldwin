@@ -20,7 +20,7 @@ keywords = ["command line", "file management", "git", "version control"]
 license = "MIT"
 name = "baldwin"
 readme = "README.md"
-version = "0.0.9"
+version = "0.0.10"
 
 [[project.authors]]
 email = "audvare@gmail.com"
