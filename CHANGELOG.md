@@ -9,6 +9,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.10]
+
+### Changed
+
+- Updated upper bound of Python version requirement.
+- Updated all dependencies.
+- Use trusted publishing.
+
 ## [0.0.9]
 
 ### Fixed
