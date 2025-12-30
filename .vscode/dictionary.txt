@@ -46,7 +46,6 @@ globaltoc
 gpgsign
 hexahourly
 hgit
-hoverxref
 htmlcov
 intersphinx
 isort
@@ -66,6 +65,7 @@ libera
 libjsonnet
 linters
 machineid
+manylinux
 modindex
 mscz
 mypy
