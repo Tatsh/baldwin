@@ -1,0 +1,24 @@
+apps:
+  baldwin:
+    command: 'bin/bw'
+    plugs:
+      - 'home'
+      - 'network'
+      - 'network-bind'
+base: 'core24'
+confinement: 'strict'
+description: 'Simple tracking of your home directory with easy-to-read diffs.'
+grade: 'stable'
+name: 'baldwin'
+parts:
+  baldwin:
+    plugin: 'poetry'
+    source: '.'
+    stage-packages: []
+platforms:
+  amd64:
+    build-on: 'amd64'
+  arm64:
+    build-on: 'arm64'
+summary: 'Simple tracking of your home directory with easy-to-read diffs.'
+version: '0.0.10'

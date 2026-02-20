@@ -14,7 +14,6 @@ buildid
 cachetextconv
 chainstate
 chatlogs
-codeowners
 colorlog
 commiter
 commitizen
@@ -31,7 +30,6 @@ djlint
 docstrings
 doctrees
 dosbox
-dylib
 eeyore
 esbenp
 esbonio
@@ -41,6 +39,7 @@ fontawesome
 fontconfig
 foxundermoon
 genindex
+getline
 gitpython
 globaltoc
 gpgsign
@@ -105,6 +104,8 @@ sessionstore
 sgrd
 shellformat
 skypeforlinux
+snapcore
+snapcraft
 softprops
 sphinxcontrib
 sstates
