@@ -1,18 +1,25 @@
 apps:
   baldwin:
-    command: 'bin/bw'
+    command: 'bin/baldwin'
     plugs:
       - 'home'
       - 'network'
       - 'network-bind'
 base: 'core24'
 confinement: 'strict'
+contact: 'https://github.com/Tatsh/baldwin/issues'
 description: 'Simple tracking of your home directory with easy-to-read diffs.'
+donation: 'https://buymeacoffee.com/Tatsh'
 grade: 'stable'
+issues: 'https://github.com/Tatsh/baldwin/issues'
+license: 'MIT'
 name: 'baldwin'
 parts:
   baldwin:
-    plugin: 'poetry'
+    build-packages: []
+    plugin: 'python'
+    python-packages:
+      - '.'
     source: '.'
     stage-packages: []
 platforms:
@@ -20,5 +27,8 @@ platforms:
     build-on: 'amd64'
   arm64:
     build-on: 'arm64'
+source-code: 'https://github.com/Tatsh/baldwin'
 summary: 'Simple tracking of your home directory with easy-to-read diffs.'
+title: 'baldwin'
 version: '0.0.10'
+website: 'https://tatsh.github.io/baldwin/'
