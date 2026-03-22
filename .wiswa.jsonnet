@@ -6,6 +6,9 @@ local utils = import 'utils.libjsonnet';
   project_name: 'baldwin',
   version: '0.0.10',
   want_main: true,
+  pyinstaller+: {
+    collect_data: ['binaryornot'],
+  },
   copilot+: {
     intro: 'Baldwin is a command line tool for tracking a home directory with Git.',
   },

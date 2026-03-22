@@ -67,6 +67,7 @@ jobs:
               echo "Building executable for '${script_name}'..."
               uv run pyinstaller --log-level ERROR --onefile -n "${script_name}" --optimize 1 \
                 --hidden-import colorlog \
+                --collect-data binaryornot \
                 -y --version-file version-info.txt \
                 temp_script.py
               if [[ "${ACTIONS_RUNNER_DEBUG}" == 'true' ]]; then
