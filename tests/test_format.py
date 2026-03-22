@@ -48,6 +48,7 @@ def test_format(runner: CliRunner, mocker: MockerFixture) -> None:
     mocker.patch('baldwin.lib.platformdirs.user_config_path'
                  ).return_value.__truediv__.return_value.exists.return_value = False
     mocker.patch('baldwin.lib.resources')
+    mocker.patch('baldwin.lib.is_binary', return_value=False)
     run = mocker.patch('baldwin.lib.sp.run')
     which = mocker.patch('baldwin.lib.which')
     which.return_value = '/bin/prettier'
@@ -69,6 +70,7 @@ def test_format_config_file_exists(runner: CliRunner, mocker: MockerFixture) -> 
     mocker.patch('baldwin.lib.platformdirs.user_config_path'
                  ).return_value.__truediv__.return_value.exists.return_value = True
     mocker.patch('baldwin.lib.resources')
+    mocker.patch('baldwin.lib.is_binary', return_value=False)
     mocker.patch('baldwin.lib.tomlkit.loads').return_value.unwrap.return_value = {}
     run = mocker.patch('baldwin.lib.sp.run')
     which = mocker.patch('baldwin.lib.which')

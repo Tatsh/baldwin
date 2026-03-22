@@ -13,6 +13,7 @@ def test_commit(runner: CliRunner, mocker: MockerFixture) -> None:
     path = mocker.patch('baldwin.lib.Path')
     mocker.patch('baldwin.lib.platformdirs.user_data_path')
     mocker.patch('baldwin.lib.resources')
+    mocker.patch('baldwin.lib.is_binary', return_value=False)
     which = mocker.patch('baldwin.lib.which')
     which.return_value = None  # Disable format
     repo = mocker.patch('baldwin.lib.Repo')
@@ -66,6 +67,7 @@ def test_commit_no_delete(runner: CliRunner, mocker: MockerFixture) -> None:
     mocker.patch('baldwin.lib.Path')
     mocker.patch('baldwin.lib.platformdirs.user_data_path')
     mocker.patch('baldwin.lib.resources')
+    mocker.patch('baldwin.lib.is_binary', return_value=False)
     which = mocker.patch('baldwin.lib.which')
     which.return_value = None  # Disable format
     repo = mocker.patch('baldwin.lib.Repo')
