@@ -1,6 +1,6 @@
 apps:
   baldwin:
-    command: 'bin/baldwin'
+    command: 'bin/bw'
     plugs:
       - 'home'
       - 'network'
