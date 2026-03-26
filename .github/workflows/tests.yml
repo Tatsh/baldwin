@@ -27,7 +27,8 @@ jobs:
           job-summary: true
           report-title: 'Test Report'
           verbose: true
-      - name: 'Coverage'
+      - if: "github.event_name != 'pull_request'"
+        name: 'Coverage'
         uses: 'coverallsapp/github-action@v2'
         with:
           file: 'coverage.xml'

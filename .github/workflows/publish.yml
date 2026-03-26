@@ -4,11 +4,12 @@ jobs:
     steps:
       - uses: 'actions/checkout@v6'
       - env:
+          COMMIT_SHA: '${{ github.sha }}'
           GH_TOKEN: '${{ github.token }}'
         id: 'check'
         name: 'Wait for workflows'
         run: |
-          sha="${{ github.sha }}"
+          sha="$COMMIT_SHA"
           for i in $(seq 1 30); do
             all_done=true
             for workflow in AppImage PyInstaller QA Snap Tests; do

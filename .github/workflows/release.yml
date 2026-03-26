@@ -9,11 +9,13 @@ jobs:
       - uses: 'actions/checkout@v6'
       - env:
           GH_TOKEN: '${{ github.token }}'
+          HEAD_BRANCH: '${{ github.event.workflow_run.head_branch }}'
+          HEAD_SHA: '${{ github.event.workflow_run.head_sha }}'
         id: 'check'
         name: 'Check all workflows succeeded'
         run: |
-          tag="${{ github.event.workflow_run.head_branch }}"
-          sha="${{ github.event.workflow_run.head_sha }}"
+          tag="$HEAD_BRANCH"
+          sha="$HEAD_SHA"
           all_success=true
           for workflow in AppImage Publish PyInstaller QA Snap Tests; do
             status=$(gh run list -w "$workflow" --commit "$sha" --json conclusion -q '.[0].conclusion')

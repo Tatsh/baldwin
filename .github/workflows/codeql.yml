@@ -22,13 +22,28 @@ jobs:
       matrix:
         language:
           - 'python'
+          - 'actions'
 name: 'CodeQL'
 'on':
   pull_request:
     branches:
       - 'master'
+    paths:
+      - '**/*.py'
+      - '**/*.pyi'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/*.yaml'
+      - '**/action.yml'
+      - '**/action.yaml'
   push:
     branches:
       - 'master'
+    paths:
+      - '**/*.py'
+      - '**/*.pyi'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/*.yaml'
+      - '**/action.yml'
+      - '**/action.yaml'
   schedule:
     - cron: '15 4 * * 3'

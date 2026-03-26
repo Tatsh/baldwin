@@ -34,8 +34,8 @@ checks, bump the version, and push.
 8. **Record the current HEAD** before bumping: `git rev-parse HEAD` (save this as `PRE_BUMP_REF`).
 
 9. **Run `cz bump --files-only --increment {MAJOR,MINOR,PATCH}`** with the appropriate increment.
-   This only updates version strings in files without committing or tagging. Never pass `--changelog`
-   or `-ch` to `cz bump`. If `cz bump` fails for any reason:
+   This only updates version strings in files without committing or tagging. Never pass
+   `--changelog` or `-ch` to `cz bump`. If `cz bump` fails for any reason:
    1. **Restore the repository** to the pre-bump state: `git checkout -- .`
    2. **Stop work immediately and alert the user.** Do not attempt to work around the failure.
 
