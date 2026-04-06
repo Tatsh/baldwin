@@ -10,9 +10,6 @@ local utils = import 'utils.libjsonnet';
   pyinstaller+: {
     collect_data: ['binaryornot'],
   },
-  copilot+: {
-    intro: 'Baldwin is a command line tool for tracking a home directory with Git.',
-  },
   docs_conf+: {
     config+: {
       intersphinx_mapping+: {
