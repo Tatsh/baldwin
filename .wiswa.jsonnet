@@ -22,6 +22,13 @@ local utils = import 'utils.libjsonnet';
       },
     },
   },
+  snapcraft+: {
+    apps+: {
+      baldwin+: {
+        command: 'bin/bw',
+      },
+    },
+  },
   pyproject+: {
     project+: {
       scripts: {

@@ -9,6 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Snap app command now uses `bin/bw`, matching the console script installed by the part.
+
 ## [0.0.10]
 
 ### Changed
