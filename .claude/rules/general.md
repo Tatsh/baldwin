@@ -1,5 +1,23 @@
 # General guidelines
 
+## Before editing repository files
+
+**Mandatory first step:** Before you create, modify, or delete any tracked file, read the `.claude/`
+tree that applies to the work:
+
+1. Read this file in full.
+2. Read every other `.claude/rules/*.md` whose scope matches files you will touch (see the rules
+   table in [AGENTS.md](../../AGENTS.md)).
+3. If the user or task names an agent, skill, or multi-step workflow (for example `/ci`, Wiswa
+   regen, or release), read those `.claude/agents/*.md` or `.claude/skills/*/SKILL.md` files before
+   changing the repository.
+4. Only then begin code or configuration changes.
+
+**Exception:** If the user is only adjusting how the assistant should behave and did not ask for a
+concrete repository change, do not edit project files.
+
+---
+
 - Do not explain project structure or conventions in comments or docstrings.
 - Use 2 spaces for indentation except in Python.
 - Files must end with a single newline character.
