@@ -14,7 +14,7 @@
       "*": true
     },
     "enableGlobDot": true,
-    "files": ["*"],
+    "files": ["**"],
     "ignorePaths": [
       "*.1",
       "*.har",
