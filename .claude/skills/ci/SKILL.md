@@ -163,6 +163,9 @@ Run commands separately. Do not chain commands with `&&` or `;`. Do not use scri
    try to commit again.
 7. After all commits, run `git status` to verify clean state.
 
+Temp commit message files under `.wiswa-ci/` do not need to be deleted after a successful commit; you
+may leave them in place.
+
 ## Rules
 
 - Never use `--no-verify` or `--no-gpg-sign`.
