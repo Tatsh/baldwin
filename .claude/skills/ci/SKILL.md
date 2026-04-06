@@ -38,13 +38,19 @@ agents **in order**:
 
 ### When user-facing changes are being committed
 
-- **changelog** - update `CHANGELOG.md` with entries for the changes.
-  After it completes, check if `CHANGELOG.md` was modified
-  (`git diff CHANGELOG.md`). If it was, it will be staged together
-  with the relevant commit. **Only run when changes affect users**:
-  files under `baldwin/`, `tests/`, or
-  dependency/version changes in `pyproject.toml`. **Skip for**: workflows, CI config, `.claude/`,
-  documentation-only changes, and other non-user-facing files.
+- **changelog** - update `CHANGELOG.md` only for **user-facing** changes (behaviour, CLI, public
+  API, security, or meaningful dependency constraints that affect installs). After it completes,
+  check if `CHANGELOG.md` was modified (`git diff CHANGELOG.md`). If it was, stage it with the
+  relevant commit. Follow `.claude/agents/changelog.md`, including its skip list.
+
+  Files under `baldwin/`, `tests/`, or version changes in `pyproject.toml` are **candidates**
+  for the changelog agent only when they **change what users see or
+  how the software behaves**. Editing those paths is not sufficient on its own.
+
+  **Skip the changelog agent** for workflows, CI config, `.claude/`, documentation-only churn,
+  cruft or generator clean-up (for example replacing template placeholders such as `unknown` in
+  repository URLs, badges, packaging metadata, or `CODEOWNERS` with the real project identity),
+  internal refactors with no behaviour change, and other non-user-facing work.
 
 ## Analysing changes
 
