@@ -39,8 +39,7 @@ name: 'Snap'
     branches:
       - 'master'
     paths:
-      - '**/*.py'
-      - '**/*.pyi'
+      - 'baldwin/**'
       - '.github/workflows/snap.yml'
       - 'pyproject.toml'
       - 'snapcraft.yaml'

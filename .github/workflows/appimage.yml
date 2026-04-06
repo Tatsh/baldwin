@@ -141,8 +141,7 @@ name: 'AppImage'
     branches:
       - 'master'
     paths:
-      - '**/*.py'
-      - '**/*.pyi'
+      - 'baldwin/**'
       - '.github/workflows/appimage.yml'
       - 'pyproject.toml'
       - 'uv.lock'
