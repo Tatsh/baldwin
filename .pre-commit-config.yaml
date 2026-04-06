@@ -108,10 +108,8 @@ repos:
         name: 'check Markdown files are formatted'
         types_or:
           - 'markdown'
-      - entry: 'yarn cspell --no-progress --no-must-find-files --no-summary'
-        id: 'cspell'
-        language: 'node'
-        name: 'check spelling'
-        types:
-          - 'text'
     repo: 'local'
+  - hooks:
+      - id: 'cspell'
+    repo: 'https://github.com/streetsidesoftware/cspell-cli'
+    rev: 'v9.7.0'
