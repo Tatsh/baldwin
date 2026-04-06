@@ -7,7 +7,7 @@ dev = [
   "commitizen>=4.13.9",
   "cz-path>=0.0.6",
   "mypy>=1.19.1",
-  "ruff>=0.15.7",
+  "ruff>=0.15.8",
   "types-binaryornot>=0.4.0.20260309",
   "yapf>=0.43.0",
 ]
@@ -143,7 +143,8 @@ reportMissingModuleSource = "error"
 reportPropertyTypeMismatch = "error"
 reportUnnecessaryTypeIgnoreComment = "none"
 typeCheckingMode = "off"
-useLibraryCodeForTypes = false
+venv = ".venv"
+venvPath = "."
 
 [tool.pytest.ini_options]
 mock_use_standalone_module = true
@@ -222,7 +223,8 @@ max-returns = 10
 max-statements = 100
 
 [tool.uv]
-default-groups = ["dev"]
+default-groups = "all"
+exclude-newer = "1 week"
 
 [tool.yapf]
 align_closing_bracket_with_visual_indent = true

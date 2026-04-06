@@ -1,6 +1,7 @@
 local utils = import 'utils.libjsonnet';
 
 {
+  uses_user_defaults: true,
   description: 'Simple tracking of your home directory with easy-to-read diffs.',
   keywords: ['command line', 'file management', 'git', 'version control'],
   project_name: 'baldwin',

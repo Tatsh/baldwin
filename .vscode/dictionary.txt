@@ -16,10 +16,12 @@ cachetextconv
 cdrommsf
 chainstate
 chatlogs
+codesign
 colorlog
 commiter
 commitizen
 conftest
+cooldown
 coveragerc
 coverallsapp
 crashpad
@@ -31,8 +33,8 @@ datatables
 dbeaver
 debugpy
 docstrings
+doctree
 doctrees
-dorny
 dosbox
 dunder
 eeyore
@@ -41,7 +43,6 @@ esbenp
 esbonio
 excinfo
 filevers
-fontawesome
 fontconfig
 foxundermoon
 functools
@@ -56,6 +57,7 @@ htmlcov
 intersphinx
 isort
 itertools
+jinja
 jkiss
 jsonlz
 jsonnet
@@ -64,6 +66,7 @@ knsregistry
 kwargs
 kxmlgui
 languagepacks
+lastexitcode
 lastlog
 launchable
 lextudio
@@ -81,6 +84,8 @@ myproject
 mypy
 namedtuples
 norecursedirs
+notarytool
+npmjs
 numpy
 numpydoc
 onefile
@@ -102,6 +107,7 @@ pydantic
 pydocstyle
 pyinstaller
 pylint
+pylock
 pypa
 pypi
 pyproject
@@ -118,6 +124,7 @@ setattr
 sgrd
 shellcheck
 shellformat
+signtool
 skypeforlinux
 snapcore
 snapcraft
@@ -143,6 +150,8 @@ vers
 viminfo
 virtualenv
 wiswa
+wiswa's
+xcrun
 yapf
 yapfignore
 yarnrc

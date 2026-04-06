@@ -1,8 +1,4 @@
-# Copilot Instructions
-
-Baldwin is a command line tool for tracking a home directory with Git.
-
-## General
+# General guidelines
 
 - Do not explain project structure or conventions in comments or docstrings.
 - Use 2 spaces for indentation except in Python.
@@ -12,7 +8,7 @@ Baldwin is a command line tool for tracking a home directory with Git.
 - Use UTF-8 encoding for all files.
 - Use spaces instead of tabs for indentation.
 - Use British spelling in comments and docstrings.
-- Use American spelling for all identifiers and string literals, except in docstrings.
+- Use American spelling for all identifiers and string literals.
 - Never mention the spelling or other project conventions in comments or docstrings.
 - Use full sentences in comments and docstrings.
 - Use the Oxford comma in lists.
@@ -30,3 +26,17 @@ Baldwin is a command line tool for tracking a home directory with Git.
   American English (`ColorCode` not `ColourCode`).
 - Add new words to `.vscode/dictionary.txt` in lowercase and keep the file sorted. Prefer to commit
   dictionary changes separately with the message `dictionary: update`.
+
+## Avoiding Permission Prompts
+
+Bash commands containing `$()` subshells trigger interactive permission prompts. Avoid these:
+
+- **Git commits**: create `.wiswa-ci` if it does not exist (`mkdir -p .wiswa-ci`), then create a
+  unique message file with `mktemp .wiswa-ci/message-XXXXXXXX`. Write the commit message there with
+  the **Write** tool (not Bash `echo` or `cat`). Commit with
+  `git commit -S -s -F <tempfile>` without using the
+  sandbox. Never use `-m "$(cat <<'EOF' ...)"` or write the message file from Bash with a
+  fixed path (permission prompts).
+- **Command substitution**: prefer chaining with `&&` and temp files over `$()` inline.
+- **Backticks**: same issue as `$()` - avoid `` `command` `` in Bash tool calls.
+- **Pipes into commands** are fine (`echo foo | git commit --stdin` etc.).

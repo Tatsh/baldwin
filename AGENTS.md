@@ -1,6 +1,62 @@
-# Agents and Instruction Files
+# Agents and AI guidance
 
-## Agents (Claude Code)
+All agent definitions, skills, and project rules live under **`.claude/`**. Use that tree whether you
+use Claude Code, Cursor, GitHub Copilot, or another assistant: open or reference the files directly,
+and use each product's own mechanics for attaching repo context where needed.
+
+- **Read the relevant `.claude/agents/*.md` and `.claude/rules/*.md` files** (and any skill they
+  name) before editing managed files, running Wiswa, or following multi-step workflows listed here.
+- If the user is only adding instructions for the assistant, **do not edit the repository** unless
+  they ask for a concrete change.
+
+## General conventions
+
+These match [.claude/rules/general.md](.claude/rules/general.md).
+
+- Do not explain project structure or conventions in comments or docstrings.
+- Use 2 spaces for indentation except in Python.
+- Files must end with a single newline character.
+- Keep lines shorter than 100 characters.
+- Line endings must be Unix-style (LF).
+- Use UTF-8 encoding for all files.
+- Use spaces instead of tabs for indentation.
+- Use British spelling in comments and docstrings.
+- Use American spelling for all identifiers and string literals.
+- Never mention the spelling or other project conventions in comments or docstrings.
+- Use full sentences in comments and docstrings.
+- Use the Oxford comma in lists.
+- Use single quotes for strings, except where double quotes are required (e.g., JSON).
+- Full words should be preferred over abbreviations, except for well-known acronyms. Some words may
+  be abbreviated:
+  - `config` for configuration.
+- Prefer to use immutable data structures over mutable ones.
+- Run `yarn format` after any changes to format all files. Must exit with code 0.
+- Run `yarn qa` after any changes to type-check and run QA utilities. Must exit with code 0. Both
+  commands must pass before committing.
+- Use `yarn` to invoke Node-based tools (Prettier, markdownlint-cli2, cspell).
+- Use `uv run` to invoke Python tools (pytest, mypy, Ruff).
+- Spell-check uses cspell with British English (`en-GB`). Exception: code identifiers must use
+  American English (`ColorCode` not `ColourCode`).
+- Add new words to `.vscode/dictionary.txt` in lowercase and keep the file sorted. Prefer to commit
+  dictionary changes separately with the message `dictionary: update`.
+
+## Rules (`.claude/rules/`)
+
+| File                                          | Scope                                 |
+| --------------------------------------------- | ------------------------------------- |
+| [general](.claude/rules/general.md)           | Project-wide conventions              |
+| [python](.claude/rules/python.md)             | Python coding (`**/*.py`, `**/*.pyi`) |
+| [python-tests](.claude/rules/python-tests.md) | Test conventions (`tests/**/*.py`)    |
+| [json-yaml](.claude/rules/json-yaml.md)       | JSON and YAML files                   |
+| [toml-ini](.claude/rules/toml-ini.md)         | TOML and INI files                    |
+| [markdown](.claude/rules/markdown.md)         | Markdown files                        |
+
+## Skills (`.claude/skills/`)
+
+Skills are folders with a `SKILL.md` file (for example [ci](.claude/skills/ci/SKILL.md) when
+present).
+
+## Agents (`.claude/agents/`)
 
 | Agent                                                        | Purpose                                                    |
 | ------------------------------------------------------------ | ---------------------------------------------------------- |
@@ -20,29 +76,3 @@
 | [regen](.claude/agents/regen.md)                             | Run Wiswa, post-process, verify, and commit                |
 | [release](.claude/agents/release.md)                         | Changelog, version bump, push                              |
 | [wiswa-sync](.claude/agents/wiswa-sync.md)                   | Reflect managed file changes back to `.wiswa.jsonnet`      |
-
-## Instruction Files
-
-Rules are maintained in parallel across three tool locations. When adding or modifying rules, update
-all three.
-
-### Copilot (`.github/instructions/`)
-
-| File                                                              | Scope                                 |
-| ----------------------------------------------------------------- | ------------------------------------- |
-| [general](.github/instructions/general.instructions.md)           | Project-wide conventions              |
-| [python](.github/instructions/python.instructions.md)             | Python coding (`**/*.py`, `**/*.pyi`) |
-| [python-tests](.github/instructions/python-tests.instructions.md) | Test conventions (`tests/**/*.py`)    |
-| [json-yaml](.github/instructions/json-yaml.instructions.md)       | JSON and YAML files                   |
-| [toml-ini](.github/instructions/toml-ini.instructions.md)         | TOML and INI files                    |
-| [markdown](.github/instructions/markdown.instructions.md)         | Markdown files                        |
-
-### Cursor (`.cursor/rules/`)
-
-| File                                           | Scope                                 |
-| ---------------------------------------------- | ------------------------------------- |
-| [python](.cursor/rules/python.mdc)             | Python coding (`**/*.py`, `**/*.pyi`) |
-| [python-tests](.cursor/rules/python-tests.mdc) | Test conventions (`tests/**/*.py`)    |
-| [json-yaml](.cursor/rules/json-yaml.mdc)       | JSON and YAML files                   |
-| [toml-ini](.cursor/rules/toml-ini.mdc)         | TOML and INI files                    |
-| [markdown](.cursor/rules/markdown.mdc)         | Markdown files                        |
