@@ -1,6 +1,7 @@
 local utils = import 'utils.libjsonnet';
 
 {
+  uses_user_defaults: true,
   description: 'Simple tracking of your home directory with easy-to-read diffs.',
   keywords: ['command line', 'file management', 'git', 'version control'],
   project_name: 'baldwin',
@@ -8,9 +9,6 @@ local utils = import 'utils.libjsonnet';
   want_main: true,
   pyinstaller+: {
     collect_data: ['binaryornot'],
-  },
-  copilot+: {
-    intro: 'Baldwin is a command line tool for tracking a home directory with Git.',
   },
   docs_conf+: {
     config+: {
@@ -21,6 +19,13 @@ local utils = import 'utils.libjsonnet';
         platformdirs: ['https://platformdirs.readthedocs.io/en/latest/', null],
         tomlkit: ['https://tomlkit.readthedocs.io/en/latest/', null],
         'typing-extensions': ['https://typing-extensions.readthedocs.io/en/latest/', null],
+      },
+    },
+  },
+  snapcraft+: {
+    apps+: {
+      baldwin+: {
+        command: 'bin/bw',
       },
     },
   },

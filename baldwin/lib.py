@@ -146,7 +146,7 @@ WantedBy=timers.target
     sp.run(cmd, check=True)
     cmd = ('systemctl', '--user', 'daemon-reload')
     log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
-    sp.run(('systemctl', '--user', 'daemon-reload'), check=True)
+    sp.run(cmd, check=True)
 
 
 def get_git_path() -> Path:

@@ -1,9 +1,3 @@
----
-description: Python coding guidelines
-globs: **/*.py, **/*.pyi
-alwaysApply: false
----
-
 # Python guidelines
 
 - Follow all rules given by Ruff, with the following exceptions:
