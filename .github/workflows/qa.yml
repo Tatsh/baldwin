@@ -12,7 +12,7 @@ jobs:
       - name: 'Install dependencies (uv)'
         run: 'uv sync --group dev --all-extras'
       - name: 'Check formatting (YAPF)'
-        run: 'uv run yapf --in-place --parallel --recursive .'
+        run: 'uv run yapf --diff --parallel --recursive .'
   mypy:
     runs-on: 'ubuntu-latest'
     steps:
