@@ -7,6 +7,8 @@ local utils = import 'utils.libjsonnet';
   project_name: 'baldwin',
   version: '0.0.10',
   want_main: true,
+  want_flatpak: true,
+  publishing+: { flathub: 'sh.tat.baldwin' },
   pyinstaller+: {
     collect_data: ['binaryornot'],
   },

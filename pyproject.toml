@@ -90,6 +90,7 @@ version_files = [
   "docs/index.rst",
   "man/baldwin.1",
   "package.json",
+  "sh.tat.baldwin.yml",
   "snapcraft.yaml",
 ]
 version_provider = "pep621"
