@@ -119,6 +119,7 @@ rstcheck
 ryujinx
 schemafile
 sdcard
+sdist
 serverlogs
 sessionstore
 setattr
