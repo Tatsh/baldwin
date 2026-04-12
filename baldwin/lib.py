@@ -27,7 +27,14 @@ log = logging.getLogger(__name__)
 
 
 def git(args: Iterable[str]) -> None:
-    """Front-end to git with git-dir and work-tree passed."""
+    """
+    Front-end to git with git-dir and work-tree passed.
+
+    Parameters
+    ----------
+    args : Iterable[str]
+        Arguments to pass to ``git`` after the ``--git-dir`` and ``--work-tree`` options.
+    """
     # Pass these arguments because of the hgit shortcut
     cmd = ('git', f'--git-dir={get_git_path()}', f'--work-tree={Path.home()}', *args)
     log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
@@ -68,7 +75,19 @@ def init() -> None:
 def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
     def can_open(file: Path) -> bool:
-        """Check if a file can be opened."""
+        """
+        Check if a file can be opened.
+
+        Parameters
+        ----------
+        file : Path
+            Path to the file.
+
+        Returns
+        -------
+        bool
+            ``True`` if the file can be opened for reading, ``False`` otherwise.
+        """
         try:
             with file.open('rb'):
                 pass
@@ -92,7 +111,7 @@ def auto_commit() -> None:
         repo.index.remove(items_to_remove)
     if items_to_add or items_to_remove or len(repo.index.diff('HEAD')) > 0:
         repo.index.commit(f'Automatic commit @ {datetime.now(tz=timezone.utc).isoformat()}',
-                          committer=Actor('Auto-commiter', 'hgit@tat.sh'))
+                          committer=Actor('Auto-committer', 'hgit@tat.sh'))
 
 
 @dataclass
@@ -105,7 +124,14 @@ class RepoInfo:
 
 
 def repo_info() -> RepoInfo:
-    """Get general repository information."""
+    """
+    Get general repository information.
+
+    Returns
+    -------
+    RepoInfo
+        Paths to the Git directory and work tree.
+    """
     return RepoInfo(git_dir_path=get_git_path(), work_tree_path=Path.home())
 
 
@@ -116,6 +142,7 @@ def install_units() -> None:
     Raises
     ------
     FileNotFoundError
+        If the ``bw`` executable is not found in ``PATH``.
     """
     bw = which('bw')
     if not bw:
@@ -154,12 +181,24 @@ def get_git_path() -> Path:
     Get the Git directory (``GIT_DIR``).
 
     This path is platform-specific. On Windows, the Roaming AppData directory will be used.
+
+    Returns
+    -------
+    Path
+        The path to the Git directory.
     """
     return platformdirs.user_data_path('home-git', roaming=True)
 
 
 def get_config() -> BaldwinConfigContainer:
-    """Get the configuration (TOML file)."""
+    """
+    Get the configuration (TOML file).
+
+    Returns
+    -------
+    BaldwinConfigContainer
+        Parsed configuration, or an empty mapping if the file does not exist.
+    """
     config_file = platformdirs.user_config_path('baldwin', roaming=True) / 'config.toml'
     if not config_file.exists():
         return {}
@@ -171,6 +210,11 @@ def get_repo() -> Repo:
     Get a :py:class:`git.Repo` object.
 
     Also disables GPG signing for the repository.
+
+    Returns
+    -------
+    Repo
+        The repository object.
     """
     repo = Repo(get_git_path(), expand_vars=False)
     repo.git.execute(('git', 'config', 'commit.gpgsign', 'false'))
@@ -190,6 +234,14 @@ def format_(filenames: Iterable[Path | str] | None = None,
     * prettier-plugin-ini
     * prettier-plugin-sort-json
     * prettier-plugin-toml
+
+    Parameters
+    ----------
+    filenames : Iterable[Path | str] | None
+        Paths to format, or ``None`` to format modified and untracked files under the home
+        directory.
+    log_level : Literal['silent', 'error', 'warn', 'log', 'debug']
+        Value for Prettier's ``--log-level`` option.
     """
     if filenames is None:
         repo = get_repo()
