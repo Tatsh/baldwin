@@ -6,8 +6,9 @@ requires = ["hatchling"]
 dev = [
   "commitizen>=4.13.9",
   "cz-path>=0.0.6",
-  "mypy>=1.19.1",
-  "ruff>=0.15.8",
+  "mypy>=1.20.0",
+  "ruff>=0.15.9",
+  "ty>=0.0.28",
   "types-binaryornot>=0.4.0.20260309",
   "yapf>=0.43.0",
 ]
@@ -48,7 +49,7 @@ classifiers = [
 dependencies = [
   "bascom>=0.1.2",
   "binaryornot>=0.6.0",
-  "click>=8.3.1",
+  "click>=8.3.2",
   "gitpython>=3.1.46",
   "platformdirs>=4.9.4",
   "tomlkit>=0.14.0",
@@ -96,7 +97,7 @@ version_provider = "pep621"
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
 omit = [
-  "__main__.py",
+  "baldwin/__main__.py",
   "conftest.py",
   "tests.py",
   "tests/*/test_*.py",
@@ -108,7 +109,7 @@ show_missing = true
 [tool.coverage.run]
 branch = true
 omit = [
-  "__main__.py",
+  "baldwin/__main__.py",
   "conftest.py",
   "tests.py",
   "tests/*/test_*.py",
@@ -118,6 +119,12 @@ omit = [
 
 [tool.doc8]
 max-line-length = 100
+
+[tool.hatch.build.targets.sdist]
+include = ["baldwin", "tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["baldwin"]
 
 [tool.mypy]
 cache_dir = "~/.cache/mypy"
@@ -168,23 +175,7 @@ quote-style = "single"
 
 [tool.ruff.lint]
 extend-select = ["ALL"]
-ignore = [
-  "ANN401",
-  "COM812",
-  "CPY001",
-  "D201",
-  "D203",
-  "D204",
-  "D212",
-  "DOC201",
-  "N818",
-  "S101",
-  "S404",
-  "S603",
-  "TD002",
-  "UP046",
-  "UP047",
-]
+ignore = ["ANN401", "COM812", "CPY001", "D203", "D204", "D212", "N818", "S404", "S603", "TD002"]
 preview = true
 
 [tool.ruff.lint.flake8-builtins]
@@ -208,7 +199,7 @@ max-complexity = 20
 extend-ignore-names = ["test_*"]
 
 [tool.ruff.lint.per-file-ignores]
-"main.py" = ["PLR0913"]
+"baldwin/main.py" = ["PLR0913"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"

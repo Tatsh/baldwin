@@ -40,6 +40,9 @@ concrete repository change, do not edit project files.
   commands must pass before committing.
 - Use `yarn` to invoke Node-based tools (Prettier, markdownlint-cli2, cspell).
 - Use `uv run` to invoke Python tools (pytest, mypy, Ruff).
+- In shell tool calls, assume the working directory is already the repository root (or whatever cwd
+  the tool reports). Do not prefix commands with `cd` into that same path unless you need a
+  different directory.
 - Spell-check uses cspell with British English (`en-GB`). Exception: code identifiers must use
   American English (`ColorCode` not `ColourCode`).
 - Add new words to `.vscode/dictionary.txt` in lowercase and keep the file sorted. Prefer to commit
