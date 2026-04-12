@@ -19,7 +19,6 @@ chainstate
 chatlogs
 codesign
 colorlog
-commiter
 commitizen
 conftest
 cooldown
@@ -44,6 +43,7 @@ esbenp
 esbonio
 excinfo
 filevers
+flathub
 fontconfig
 foxundermoon
 functools
