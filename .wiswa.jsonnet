@@ -60,14 +60,6 @@ local utils = import 'utils.libjsonnet';
       },
     },
   },
-  github+: {
-    workflows+: {
-      qa+: {
-        allow_pyright_failure: false,
-        allow_ty_failure: false,
-      },
-    },
-  },
   flatpak+: {
     command: 'bw',
   },
