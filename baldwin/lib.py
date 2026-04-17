@@ -25,6 +25,9 @@ if TYPE_CHECKING:
 
     from .typing import BaldwinConfigContainer
 
+__all__ = ('RepoInfo', 'auto_commit', 'format_', 'get_config', 'get_git_path', 'get_repo', 'git',
+           'init', 'install_units', 'repo_info', 'set_git_env_vars')
+
 log = logging.getLogger(__name__)
 
 _MAX_PARALLEL_PRETTIER = max(1, (os.cpu_count() or 1))
