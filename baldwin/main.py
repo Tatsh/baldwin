@@ -1,6 +1,7 @@
 """Commands."""
 from __future__ import annotations
 
+import asyncio
 import logging
 
 from bascom import setup_logging
@@ -51,13 +52,13 @@ def init() -> None:
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
 def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
-    auto_commit_()
+    asyncio.run(auto_commit_())
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
 def format() -> None:  # noqa: A001
     """Format changed and untracked files."""
-    format_()
+    asyncio.run(format_())
 
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})

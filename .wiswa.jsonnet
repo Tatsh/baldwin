@@ -15,6 +15,7 @@ local utils = import 'utils.libjsonnet';
   docs_conf+: {
     config+: {
       intersphinx_mapping+: {
+        anyio: ['https://anyio.readthedocs.io/en/stable/', null],
         binaryornot: ['https://binaryornot.readthedocs.io/en/latest/', null],
         click: ['https://click.palletsprojects.com/en/latest/', null],
         gitpython: ['https://gitpython.readthedocs.io/en/stable/', null],
@@ -45,6 +46,7 @@ local utils = import 'utils.libjsonnet';
       },
       poetry+: {
         dependencies+: {
+          anyio: utils.latestPypiPackageVersionCaret('anyio'),
           binaryornot: utils.latestPypiPackageVersionCaret('binaryornot'),
           gitpython: utils.latestPypiPackageVersionCaret('gitpython'),
           platformdirs: utils.latestPypiPackageVersionCaret('platformdirs'),

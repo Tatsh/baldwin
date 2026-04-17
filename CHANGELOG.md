@@ -9,6 +9,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- `bw format` and `bw auto-commit` now run Prettier invocations and filesystem checks
+  concurrently, bounded by the number of available CPUs, significantly reducing wall-clock time
+  on repositories with many files.
+
 ### Fixed
 
 - Snap app command now uses `bin/bw`, matching the console script installed by the part.

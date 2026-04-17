@@ -9,12 +9,14 @@ from pathlib import Path
 from shlex import quote
 from shutil import which
 from typing import TYPE_CHECKING, Literal, cast
+import asyncio
 import logging
 import os
 import subprocess as sp
 
 from binaryornot.check import is_binary
 from git import Actor, Repo
+import anyio
 import platformdirs
 import tomlkit
 
@@ -24,6 +26,12 @@ if TYPE_CHECKING:
     from .typing import BaldwinConfigContainer
 
 log = logging.getLogger(__name__)
+
+_MAX_PARALLEL_PRETTIER = max(1, (os.cpu_count() or 1))
+"""Upper bound on concurrent Prettier invocations.
+
+:meta hide-value:
+"""
 
 
 def git(args: Iterable[str]) -> None:
@@ -72,40 +80,73 @@ def init() -> None:
         repo.git.execute(('git', 'config', 'diff.yaml.cachetextconv', 'true'))
 
 
-def auto_commit() -> None:
+async def _can_open(file: anyio.Path) -> bool:
+    """
+    Check whether a file can be opened for reading.
+
+    Parameters
+    ----------
+    file : anyio.Path
+        Path to the file.
+
+    Returns
+    -------
+    bool
+        ``True`` if the file can be opened for reading, ``False`` otherwise.
+    """
+    try:
+        handle = await file.open('rb')
+    except OSError:
+        return False
+    await handle.aclose()
+    return True
+
+
+async def _classify_untracked(path: anyio.Path) -> anyio.Path | None:
+    """
+    Determine whether an untracked path should be staged.
+
+    Runs :py:func:`_can_open` and :py:meth:`anyio.Path.is_file` concurrently, then defers to
+    :py:func:`~binaryornot.check.is_binary` (in a worker thread) only when both succeed; the
+    binary check reads the file and must not run on paths that cannot be opened or are not
+    regular files.
+
+    Parameters
+    ----------
+    path : anyio.Path
+        Path to classify.
+
+    Returns
+    -------
+    anyio.Path | None
+        The input path when it should be staged, otherwise ``None``.
+    """
+    can_open, is_file = await asyncio.gather(_can_open(path), path.is_file())
+    if not (can_open and is_file):
+        return None
+    if await asyncio.to_thread(is_binary, str(path)):
+        return None
+    return path
+
+
+async def auto_commit() -> None:
     """Automated commit of changed and untracked files."""
-    def can_open(file: Path) -> bool:
-        """
-        Check if a file can be opened.
-
-        Parameters
-        ----------
-        file : Path
-            Path to the file.
-
-        Returns
-        -------
-        bool
-            ``True`` if the file can be opened for reading, ``False`` otherwise.
-        """
-        try:
-            with file.open('rb'):
-                pass
-        except OSError:
-            return False
-        return True
-
     repo = get_repo()
-    diff_items = [Path.home() / e.a_path for e in repo.index.diff(None) if e.a_path is not None]
+    home = anyio.Path(Path.home())
+    diff_items = [home / e.a_path for e in repo.index.diff(None) if e.a_path is not None]
+    untracked = [home / y for y in repo.untracked_files]
+    existing_results, untracked_results = await asyncio.gather(
+        asyncio.gather(*(p.exists() for p in diff_items)),
+        asyncio.gather(*(_classify_untracked(p) for p in untracked)))
     items_to_add = [
-        *[p for p in diff_items if p.exists()], *[
-            x for x in (Path.home() / y for y in repo.untracked_files)
-            if can_open(x) and x.is_file() and not is_binary(str(x))
-        ]
+        *(Path(p) for p, exists in zip(diff_items, existing_results, strict=True) if exists),
+        *(Path(p) for p in untracked_results if p is not None)
     ]
-    items_to_remove = [p for p in diff_items if not p.exists()]
+    items_to_remove = [
+        Path(p) for p, exists in zip(diff_items, existing_results, strict=True) if not exists
+    ]
     if items_to_add:
-        format_(items_to_add)
+        await format_(items_to_add)
         repo.index.add(items_to_add)
     if items_to_remove:
         repo.index.remove(items_to_remove)
@@ -221,12 +262,30 @@ def get_repo() -> Repo:
     return repo
 
 
-def format_(filenames: Iterable[Path | str] | None = None,
-            log_level: Literal['silent', 'error', 'warn', 'log', 'debug'] = 'error') -> None:
+async def _run_prettier(cmd: tuple[str, ...], semaphore: asyncio.Semaphore) -> None:
+    """
+    Run a single Prettier invocation under a concurrency semaphore.
+
+    Parameters
+    ----------
+    cmd : tuple[str, ...]
+        The full command-line arguments, including the Prettier executable.
+    semaphore : asyncio.Semaphore
+        Semaphore bounding concurrent Prettier processes.
+    """
+    async with semaphore:
+        log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
+        process = await asyncio.create_subprocess_exec(*cmd)
+        await process.wait()
+
+
+async def format_(filenames: Iterable[Path | str] | None = None,
+                  log_level: Literal['silent', 'error', 'warn', 'log', 'debug'] = 'error') -> None:
     """
     Format untracked and modified files in the repository.
 
-    Does nothing if Prettier is not in ``PATH``.
+    Does nothing if Prettier is not in ``PATH``. Each file is formatted by a separate Prettier
+    process; invocations run concurrently, bounded by the number of available CPUs.
 
     The following plugins will be detected and enabled if found:
 
@@ -245,10 +304,12 @@ def format_(filenames: Iterable[Path | str] | None = None,
     """
     if filenames is None:
         repo = get_repo()
+        home = anyio.Path(Path.home())
+        untracked = [home / y for y in repo.untracked_files]
+        keep = await asyncio.gather(*(_classify_untracked(p) for p in untracked))
         filenames = (*(Path.home() / d.a_path
                        for d in repo.index.diff(None) if d.a_path is not None),
-                     *(x for x in (Path.home() / y for y in repo.untracked_files)
-                       if x.is_file() and not is_binary(str(x))))
+                     *(Path(p) for p in keep if p is not None))
     if not (filenames := list(filenames)):
         log.debug('No files to format.')
         return
@@ -259,21 +320,21 @@ def format_(filenames: Iterable[Path | str] | None = None,
         config_file = get_config().get('baldwin', {
             'prettier_config': str(default_config_file)
         }).get('prettier_config')
-        # Detect plugins
-        node_modules_path = (Path(prettier).resolve(strict=True).parent /
-                             '../..').resolve(strict=True)
-        cmd_prefix = (prettier, '--config', str(config_file), '--write',
-                      '--no-error-on-unmatched-pattern', '--ignore-unknown', '--log-level',
-                      log_level, *chain(*(('--plugin', str(fp))
-                                          for module in ('@prettier/plugin-xml/src/plugin.js',
-                                                         'prettier-plugin-ini/src/plugin.js',
-                                                         'prettier-plugin-sort-json/dist/index.js',
-                                                         'prettier-plugin-toml/lib/index.cjs')
-                                          if (fp := (node_modules_path / module)).exists())))
-        for filename in filenames:
-            cmd = (*cmd_prefix, str(filename))
-            log.debug('Running: %s', ' '.join(quote(x) for x in cmd))
-            sp.run(cmd, check=False)
+        prettier_real = await anyio.Path(prettier).resolve(strict=True)
+        node_modules_path = await (prettier_real.parent / '../..').resolve(strict=True)
+        plugin_modules = ('@prettier/plugin-xml/src/plugin.js', 'prettier-plugin-ini/src/plugin.js',
+                          'prettier-plugin-sort-json/dist/index.js',
+                          'prettier-plugin-toml/lib/index.cjs')
+        plugin_paths = [node_modules_path / module for module in plugin_modules]
+        plugin_exists = await asyncio.gather(*(p.exists() for p in plugin_paths))
+        cmd_prefix = (
+            prettier, '--config', str(config_file), '--write', '--no-error-on-unmatched-pattern',
+            '--ignore-unknown', '--log-level', log_level,
+            *chain(*(('--plugin', str(fp))
+                     for fp, exists in zip(plugin_paths, plugin_exists, strict=True) if exists)))
+        semaphore = asyncio.Semaphore(_MAX_PARALLEL_PRETTIER)
+        await asyncio.gather(*(_run_prettier((*cmd_prefix, str(filename)), semaphore)
+                               for filename in filenames))
 
 
 def set_git_env_vars() -> None:
