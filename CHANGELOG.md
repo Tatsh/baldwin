@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `bw format` and `bw auto-commit` now run Prettier invocations and filesystem checks
   concurrently, bounded by the number of available CPUs, significantly reducing wall-clock time
   on repositories with many files.
+- `-d`/`--debug` moved from the `bw` group to each subcommand (including `hgit`). Invocations
+  like `bw -d auto-commit` must now be written as `bw auto-commit -d`.
 
 ### Fixed
 
