@@ -5,7 +5,7 @@ local utils = import 'utils.libjsonnet';
   description: 'Simple tracking of your home directory with easy-to-read diffs.',
   keywords: ['command line', 'file management', 'git', 'version control'],
   project_name: 'baldwin',
-  version: '0.0.10',
+  version: '0.1.0',
   want_main: true,
   want_flatpak: true,
   publishing+: { flathub: 'sh.tat.baldwin' },

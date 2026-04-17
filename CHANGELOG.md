@@ -9,6 +9,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-04-17
+
+### Added
+
+- The `baldwin` package now declares `__all__` for explicit public exports.
+- Flatpak-related CI and a Flathub-oriented manifest for downstream packaging.
+
 ### Changed
 
 - `bw format` and `bw auto-commit` now run Prettier invocations and filesystem checks
@@ -35,5 +42,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - auto-commit: do not try to add files that cannot be opened.
 
-[unreleased]: https://github.com/Tatsh/baldwin/-/compare/v0.0.9...HEAD
+[unreleased]: https://github.com/Tatsh/baldwin/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Tatsh/baldwin/compare/v0.0.10...v0.1.0
+[0.0.10]: https://github.com/Tatsh/baldwin/compare/v0.0.9...v0.0.10
 [0.0.9]: https://github.com/Tatsh/baldwin/compare/v0.0.8...v0.0.9

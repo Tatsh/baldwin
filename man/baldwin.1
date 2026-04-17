@@ -27,9 +27,9 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "BALDWIN" "1" "Apr 06, 2026" "0.0.10" "baldwin"
+.TH "BALDWIN" "1" "Apr 17, 2026" "0.1.0" "baldwin"
 .SH NAME
-baldwin \- baldwin v0.0.10
+baldwin \- baldwin v0.1.0
 .sp
 This is a conversion of my simple scripts to version my home directory with very specific excludes
 and formatting every file upon commit so that readable diffs can be generated.
@@ -47,13 +47,6 @@ bw [OPTIONS] COMMAND [ARGS]...
 .EE
 .UNINDENT
 .UNINDENT
-.sp
-Options
-.INDENT 0.0
-.TP
-.B \-d, \-\-debug
-Enable debug logging.
-.UNINDENT
 .SS auto\-commit
 .sp
 Automated commit of changed and untracked files.
@@ -66,6 +59,13 @@ Usage
 bw auto\-commit [OPTIONS]
 .EE
 .UNINDENT
+.UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
 .UNINDENT
 .SS format
 .sp
@@ -80,6 +80,13 @@ bw format [OPTIONS]
 .EE
 .UNINDENT
 .UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
+.UNINDENT
 .SS git
 .sp
 Wrap git with git\-dir and work\-tree passed.
@@ -92,6 +99,13 @@ Usage
 bw git [OPTIONS] [ARGS]...
 .EE
 .UNINDENT
+.UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
 .UNINDENT
 .sp
 Arguments
@@ -113,6 +127,13 @@ bw info [OPTIONS]
 .EE
 .UNINDENT
 .UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
+.UNINDENT
 .SS init
 .sp
 Start tracking a home directory.
@@ -125,6 +146,13 @@ Usage
 bw init [OPTIONS]
 .EE
 .UNINDENT
+.UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
 .UNINDENT
 .SS install\-units
 .sp
@@ -139,6 +167,13 @@ bw install\-units [OPTIONS]
 .EE
 .UNINDENT
 .UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
+.UNINDENT
 .SS hgit
 .sp
 Wrap git with git\-dir and work\-tree passed.
@@ -151,6 +186,13 @@ Usage
 hgit [OPTIONS] [ARGS]...
 .EE
 .UNINDENT
+.UNINDENT
+.sp
+Options
+.INDENT 0.0
+.TP
+.B \-d, \-\-debug
+Enable debug logging.
 .UNINDENT
 .sp
 Arguments
