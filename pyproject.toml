@@ -7,9 +7,9 @@ dev = [
   "commitizen>=4.13.9",
   "cz-path>=0.0.6",
   "mypy>=1.20.0",
-  "ruff>=0.15.9",
+  "ruff>=0.15.10",
   "ty>=0.0.29",
-  "types-binaryornot>=0.4.0.20260309",
+  "types-binaryornot>=0.4.0.20260408",
   "yapf>=0.43.0",
 ]
 docs = [
@@ -31,7 +31,7 @@ tests = [
   "mock>=5.2.0",
   "pytest-cov>=7.1.0",
   "pytest-mock>=3.15.1",
-  "pytest>=9.0.2",
+  "pytest>=9.0.3",
 ]
 
 [project]
@@ -51,7 +51,7 @@ dependencies = [
   "binaryornot>=0.6.0",
   "click>=8.3.2",
   "gitpython>=3.1.46",
-  "platformdirs>=4.9.4",
+  "platformdirs>=4.9.6",
   "tomlkit>=0.14.0",
   "typing-extensions>=4.15.0",
 ]
