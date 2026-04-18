@@ -115,8 +115,10 @@ pypa
 pypi
 pyproject
 pytest
+pythonhosted
 regen
 ripdb
+ripgreprc
 rstcheck
 ryujinx
 schemafile

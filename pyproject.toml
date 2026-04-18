@@ -4,7 +4,7 @@ requires = ["hatchling"]
 
 [dependency-groups]
 dev = [
-  "commitizen>=4.13.9",
+  "commitizen>=4.13.10",
   "cz-path>=0.0.6",
   "mypy>=1.20.0",
   "ruff>=0.15.10",
