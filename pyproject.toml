@@ -17,7 +17,7 @@ docs = [
   "doc8>=2.0.0",
   "docutils<0.22",
   "enum-tools[sphinx]>=0.13.0",
-  "esbonio>=1.1.0",
+  "esbonio>=2.0.0",
   "numpydoc>=1.10.0",
   "restructuredtext-lint>=2.0.2",
   "sphinx-click>=6.2.0",
