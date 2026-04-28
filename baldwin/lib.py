@@ -21,7 +21,7 @@ import platformdirs
 import tomlkit
 
 if TYPE_CHECKING:
-    from collections.abc import Iterable
+    from collections.abc import Iterable, Sequence
 
     from .typing import BaldwinConfigContainer
 
@@ -265,13 +265,13 @@ def get_repo() -> Repo:
     return repo
 
 
-async def _run_prettier(cmd: tuple[str, ...], semaphore: asyncio.Semaphore) -> None:
+async def _run_prettier(cmd: Sequence[str], semaphore: asyncio.Semaphore) -> None:
     """
     Run a single Prettier invocation under a concurrency semaphore.
 
     Parameters
     ----------
-    cmd : tuple[str, ...]
+    cmd : Sequence[str]
         The full command-line arguments, including the Prettier executable.
     semaphore : asyncio.Semaphore
         Semaphore bounding concurrent Prettier processes.
