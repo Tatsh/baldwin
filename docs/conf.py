@@ -42,7 +42,7 @@ html_theme_options = {
     'globaltoc_collapse': True,
     'icon': {
         'edit': 'material/file-edit-outline',
-        'repo': 'fontawesome/brands/gitlab'
+        'repo': 'fontawesome/brands/github'
     },
     'palette': [{
         'media': '(prefers-color-scheme)',
@@ -75,6 +75,7 @@ html_theme_options = {
     'toc_title_is_page_title': True
 }
 intersphinx_mapping = {
+    'bascom': ('https://bascom.readthedocs.io/en/latest/', None),
     'binaryornot': ('https://binaryornot.readthedocs.io/en/latest/', None),
     'click': ('https://click.palletsprojects.com/en/latest/', None),
     'gitpython': ('https://gitpython.readthedocs.io/en/stable/', None),
