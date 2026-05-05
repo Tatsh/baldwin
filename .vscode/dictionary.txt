@@ -48,6 +48,7 @@ filevers
 flathub
 fontconfig
 foxundermoon
+fqxz
 functools
 genindex
 gitpython

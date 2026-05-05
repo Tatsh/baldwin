@@ -10,6 +10,9 @@ local utils = import 'utils.libjsonnet';
   want_flatpak: true,
   publishing+: { flathub: 'sh.tat.baldwin' },
   security_policy_supported_versions: { '0.1.x': ':white_check_mark:' },
+  appimage+: {
+    exclusions: ['hgit'],
+  },
   pyinstaller+: {
     collect_data: ['binaryornot'],
   },

@@ -23,7 +23,14 @@ jobs:
           version=$(tomlq -r .project.version pyproject.toml)
           rm -fR dist
           mkdir dist
+          exclusions=(
+            hgit
+          )
           while IFS=$' ' read -r script_name python_path func_name; do
+              if printf '%s\0' "${exclusions[@]}" | grep -Fqxz -- "${script_name}"; then
+                  echo "Skipping ${script_name}."
+                  continue
+              fi
               func_name="${func_name#"${func_name%%[![:space:]]*}"}"
               func_name="${func_name%"${func_name##*[![:space:]]}"}"
               rm -fR recipe
@@ -82,7 +89,7 @@ jobs:
               cp generic.svg "recipe/${script_name}.svg"
               echo "Building AppImage for '${script_name}'..."
               uv run python -m python_appimage -v build app -l "manylinux2014_${{ matrix.system.arch }}" -p 3.13 recipe
-              mv "${script_name}-${{ matrix.system.arch }}.AppImage" "dist/${script_name}-v${version}-${{ matrix.system.arch }}.AppImage"
+              mv "${script_name}-${{ matrix.system.arch }}.AppImage" "dist/${project_name}-v${version}-${{ matrix.system.arch }}.AppImage"
           done < <(tomlq -r '.project.scripts|to_entries[]|"\(.key) \(.value|split(":")|join(" "))"' pyproject.toml)
         shell: 'bash'
       - name: 'Test binary'
