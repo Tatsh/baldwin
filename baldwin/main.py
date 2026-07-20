@@ -70,7 +70,7 @@ def auto_commit(*, debug: bool = False) -> None:
 
 @click.command(context_settings={'help_option_names': ('-h', '--help')})
 @click.option('-d', '--debug', help='Enable debug logging.', is_flag=True)
-def format(*, debug: bool = False) -> None:  # noqa: A001
+def format(*, debug: bool = False) -> None:  # ruff:ignore[builtin-variable-shadowing]
     """Format changed and untracked files."""
     _setup(debug=debug)
     asyncio.run(format_())
