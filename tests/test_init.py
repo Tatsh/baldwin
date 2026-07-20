@@ -65,7 +65,7 @@ def test_init_no_xml_plugin(runner: CliRunner, mocker: MockerFixture) -> None:
     mocker.patch('baldwin.lib.resources')
     which = mocker.patch('baldwin.lib.which')
     which.side_effect = ['jq', 'prettier']
-    path.return_value.resolve.return_value.parent.__truediv__.return_value.__truediv__.return_value.resolve.return_value.__truediv__.return_value.exists.return_value = False  # noqa: E501
+    path.return_value.resolve.return_value.parent.__truediv__.return_value.__truediv__.return_value.resolve.return_value.__truediv__.return_value.exists.return_value = False  # ruff:ignore[line-too-long]
     runner.invoke(baldwin, ('init',))
     assert repo.init.called
     assert repo.init.return_value.index.add.called
