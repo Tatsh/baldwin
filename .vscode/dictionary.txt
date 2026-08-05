@@ -54,6 +54,7 @@ genindex
 gitpython
 globaltoc
 gpgsign
+handoff
 hexahourly
 hgit
 hoverxref
@@ -89,7 +90,6 @@ mypy
 namedtuples
 norecursedirs
 notarytool
-npmjs
 numpy
 onefile
 oneline
@@ -104,6 +104,7 @@ platformdirs
 plistlib
 pmap
 poweriso
+preapproved
 prodvers
 pycache
 pydantic
@@ -134,10 +135,10 @@ signtool
 skypeforlinux
 snapcore
 snapcraft
-softprops
 soupsieve
 sphinxcontrib
 sstates
+statusline
 syft
 tatsh
 testpaths
@@ -151,14 +152,19 @@ tostring
 tryfirst
 ubyte
 udvare
+undraft
+undrafted
 vendored
 venv
 vers
 viminfo
 virtualenv
+winget
 wiswa
 wiswa's
+worktree
 xcrun
 yapf
 yapfignore
 yarnrc
+zizmor
