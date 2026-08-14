@@ -284,15 +284,16 @@ tests = [
 
 [[package]]
 name = "bascom"
-version = "0.1.3"
+version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "click" },
     { name = "colorlog" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1a/28/4e608a62214b25ccaa94d87e0f3ea465b808a851513cb3f7b3d645218bc1/bascom-0.1.3.tar.gz", hash = "sha256:22a42fc5a0e8b3f224dfe797f5409683b627fb57e522ee33d0172e540ac292a7", size = 7449, upload-time = "2026-05-02T21:53:46.141Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/f6/3e08829b2b217698c3c298ed78ed604c7ed51e60803e27d3be830e209e16/bascom-0.2.0.tar.gz", hash = "sha256:c5fbe250a036dbc3994167c3e2eb2672bd92bb8b9ac300e036c7b6766cb07df6", size = 9051, upload-time = "2026-08-07T00:30:29.28Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/25/63/db3cf445c32b2fd2ddd3a4b43019e615a0d8a42d5d671580032e6fd3fb0b/bascom-0.1.3-py3-none-any.whl", hash = "sha256:0776404625258ac90966601032d3402b82ffd552fd286f3a4f03606b8029410e", size = 5548, upload-time = "2026-05-02T21:53:44.78Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/16/9bb39b3751073fde032e5dfe74582a9615e60110d05efffee861f22196e0/bascom-0.2.0-py3-none-any.whl", hash = "sha256:c9d8a76ee59142be5c8a8489a2140fe216b714f04d0d239e7c7b33ca82d482a2", size = 6782, upload-time = "2026-08-07T00:30:28.15Z" },
 ]
 
 [[package]]
@@ -780,14 +781,14 @@ wheels = [
 
 [[package]]
 name = "gitpython"
-version = "3.1.57"
+version = "3.1.58"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "gitdb" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ba/0d/132ed135c871b6bf91adf16a0e43797cd535b81d4973b5d09291c54fc5ee/gitpython-3.1.57.tar.gz", hash = "sha256:c493ec57c0ef6b19743798b6a5af859c71814b524e7e6f97baa2f8e658961488", size = 225898, upload-time = "2026-07-26T07:33:26.351Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/d6/5f358ff283325580c2003a6d953aea18cfe10ae87b46f5ebc80fa3a386dc/gitpython-3.1.58.tar.gz", hash = "sha256:621416df10ef3fd0e19fabf9172ddeed0fa704d353d04f194eec56a625a95b22", size = 228498, upload-time = "2026-08-04T15:05:49.47Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/41/6e/2139de986d9c7c3ac86f1f8be43858ce90bdfe2f7175e6c80c650ba15242/gitpython-3.1.57-py3-none-any.whl", hash = "sha256:4ccf7d73c10f5c9e76043fbb2675ac5a1b3ff5b41e648f56bcbed5f63792ecaf", size = 217151, upload-time = "2026-07-26T07:33:24.838Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/0c/9d8752098bc442f0726e64aa6135940b3a96809915d1aa4206c1bb97881d/gitpython-3.1.58-py3-none-any.whl", hash = "sha256:d331e722577f0fd7fc1f857419b3ecc07af66282b933d2a4d95f84a042fdd50f", size = 220183, upload-time = "2026-08-04T15:05:48.025Z" },
 ]
 
 [[package]]
