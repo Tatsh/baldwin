@@ -1,7 +1,6 @@
 acetoneiso
 adbkey
 anchore
-Ångström
 anyio
 appdir
 appimage
@@ -9,6 +8,7 @@ appinfo
 asyncio
 autodoc
 automodule
+autouse
 bascom
 bdic
 binaryornot
@@ -22,7 +22,6 @@ codesign
 colorlog
 commitizen
 conftest
-cooldown
 coveragerc
 coverallsapp
 crashpad
@@ -40,6 +39,7 @@ dosbox
 dunder
 eeyore
 elif
+endswith
 esac
 esbenp
 esbonio
@@ -88,9 +88,13 @@ mscz
 myproject
 mypy
 namedtuples
+noone
+noqa
 norecursedirs
 notarytool
+nullglob
 numpy
+numpydoc
 onefile
 oneline
 oneshot
@@ -103,6 +107,7 @@ pipx
 platformdirs
 plistlib
 pmap
+popen
 poweriso
 preapproved
 prodvers
@@ -122,6 +127,7 @@ ripdb
 ripgreprc
 rstcheck
 ryujinx
+sbclaude
 schemafile
 sdcard
 sdist
@@ -131,6 +137,7 @@ setattr
 sgrd
 shellcheck
 shellformat
+shopt
 signtool
 skypeforlinux
 snapcore
@@ -162,9 +169,9 @@ virtualenv
 winget
 wiswa
 wiswa's
-worktree
 xcrun
 yapf
 yapfignore
 yarnrc
 zizmor
+Ångström
