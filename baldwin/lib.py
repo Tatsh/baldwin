@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from importlib import resources
 from itertools import chain
 from pathlib import Path
@@ -154,7 +154,7 @@ async def auto_commit() -> None:
     if items_to_remove:
         repo.index.remove(items_to_remove)
     if items_to_add or items_to_remove or len(repo.index.diff('HEAD')) > 0:
-        repo.index.commit(f'Automatic commit @ {datetime.now(tz=timezone.utc).isoformat()}',
+        repo.index.commit(f'Automatic commit @ {datetime.now(tz=UTC).isoformat()}',
                           committer=Actor('Auto-committer', 'hgit@tat.sh'))
 
 
