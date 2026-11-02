@@ -77,6 +77,7 @@ launchable
 lextudio
 libera
 libjsonnet
+librsvg
 libsonnet
 linters
 machineid
@@ -126,6 +127,7 @@ regen
 ripdb
 ripgreprc
 rstcheck
+rsvg
 ryujinx
 sbclaude
 schemafile
