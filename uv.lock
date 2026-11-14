@@ -1896,7 +1896,7 @@ wheels = [
 
 [[package]]
 name = "sphinx-immaterial"
-version = "0.13.9"
+version = "0.13.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "appdirs" },
@@ -1909,7 +1909,7 @@ dependencies = [
     { name = "typing-extensions" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3d/42/6e958fc5d80ccd18c87d1b7d7c0e17fed04c0ed8a72933dd41c8643622d4/sphinx_immaterial-0.13.9-py3-none-any.whl", hash = "sha256:5ea92d2ddc6befcd0fedbd3e6766ea4746e94d9a8a5cc0ab092a946e1fde4254", size = 13742592, upload-time = "2026-02-06T16:53:11.262Z" },
+    { url = "https://files.pythonhosted.org/packages/44/0d/6fbc083b4d03df141819771546371a5daa4c9a41b7385689e9844ddc4bb3/sphinx_immaterial-0.13.10-py3-none-any.whl", hash = "sha256:3aae700211bfca4d93aa778b0cd1c0f317190d15111acd87ebab4de88431b02c", size = 13744608, upload-time = "2026-11-07T00:09:10.85Z" },
 ]
 
 [[package]]
