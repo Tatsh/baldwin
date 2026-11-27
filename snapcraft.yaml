@@ -20,7 +20,8 @@ parts:
     plugin: 'python'
     python-packages:
       - '.'
-    source: '.'
+    source: 'https://github.com/Tatsh/baldwin.git'
+    source-tag: 'v0.1.0'
     stage-packages: []
 platforms:
   amd64:
